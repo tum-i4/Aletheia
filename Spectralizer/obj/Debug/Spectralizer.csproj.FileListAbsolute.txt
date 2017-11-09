@@ -1,0 +1,7 @@
+C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\Debug\Spectralizer.exe.config
+C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\Debug\Spectralizer.exe
+C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\Debug\Spectralizer.pdb
+C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\Debug\MwMatlabClustering.dll
+C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\obj\Debug\Spectralizer.csprojResolveAssemblyReference.cache
+C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\obj\Debug\Spectralizer.exe
+C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\obj\Debug\Spectralizer.pdb
