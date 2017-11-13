@@ -52,13 +52,7 @@ namespace Aletheia.CommandLine.input
                         addNewArgumentToArgumentsList(key, value);
                         args.Add(key, value);
                     }
-                    else if (tmpKey.Equals(PossibleCommandLineArguments.MODE, StringComparison.OrdinalIgnoreCase))
-                    {
-                        string key = PossibleCommandLineArguments.MODE;
-                        string value = argument.Split('=')[1].Trim();
-                        addNewArgumentToArgumentsList(key, value);
-                        args.Add(key, value);
-                    }
+                    
                     else if (tmpKey.Equals(PossibleCommandLineArguments.PROJECT_PATH, StringComparison.OrdinalIgnoreCase))
                     {
                         string key = PossibleCommandLineArguments.PROJECT_PATH;
