@@ -1,8 +1,0 @@
-C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\x64\Release\Spectralizer.exe.config
-C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\x64\Release\Spectralizer.exe
-C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\x64\Release\getDistance.dll
-C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\x64\Release\MWArray.dll
-C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\x64\Release\MwMatlabClustering.dll
-C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\bin\x64\Release\MWArray.xml
-C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\obj\x64\Release\Spectralizer.exe
-C:\Users\i22\Desktop\Repo\Copy\Spectralizer\Spectralizer\obj\x64\Release\Spectralizer.csprojResolveAssemblyReference.cache
