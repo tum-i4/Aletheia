@@ -11,11 +11,11 @@ Then ```cd Aletheia```<br />
 You can find the visual studio solution file threre, open it and build the solution. <br />
 You can get the binaries in bin folder. dll files are necessary. The tool is portable, if you copy the exe file along with dll files it will work. 
 
-### 3. Modules
+### 3. Components
 Alethia has three modules
-* GenerateHitSpectra
-* Cluster
-* FaultLocalization
+* Data Generation
+* Failure Clustering
+* Fault Localization
 
 Help can be obtained by executing ```Aletheia.exe do=getHelp```
 A sample command to generate Hit Spectra matrix is ```Aletheia.exe do=GenerateHitSpectra separator=; project_path=path\to\*.vcxproj file source_directory=path\to\source degreeofparallelism=12 gtest_path=path\to\gtest.exe ```
