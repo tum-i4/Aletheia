@@ -2,7 +2,7 @@
 ### 1. Requirement
 a) Matlab Runtime 2016a<br />
 b) OpenCppCoverage, [has to be added in the path]<br />
-c) OpenCV project<br />
+
 
 
 ### 2. Getting Aletheia
