@@ -534,18 +534,22 @@ namespace Aletheia.HitSpectra
                 Coverage testCoverage = testcaseContext.TestCoverage;
                 if (testCoverage.Package.Length > 0)
                 {
-                    foreach (Class tmpClass in testCoverage.Package[0].SourceFiles)
+                    for (int a = 0; a < testCoverage.Package.Length; a++)
                     {
-                        #region all by the testcases touched sourcefiles are stored in Dictionary 'repository'
-                        //Step 2.1: Add the Source-File to the repository to prevent multiple instantiation of the same file
-                        if (!repository.ContainsKey(tmpClass.FileName))
+                        foreach (Class tmpClass in testCoverage.Package[a].SourceFiles)
                         {
-                            if (File.Exists(Path.GetPathRoot(srcDir) + tmpClass.FilePath))
-                                repository[tmpClass.FileName] = new SourceFile(Path.GetPathRoot(srcDir) + tmpClass.FilePath);
-                            else
-                                Console.WriteLine("File not found: " + Path.GetPathRoot(srcDir) + tmpClass.FilePath);
+                            #region all by the testcases touched sourcefiles are stored in Dictionary 'repository'
+                            //Step 2.1: Add the Source-File to the repository to prevent multiple instantiation of the same file
+
+                            if (!repository.ContainsKey(tmpClass.FileName))
+                            {
+                                if (File.Exists(Path.GetPathRoot(srcDir) + tmpClass.FilePath))
+                                    repository[tmpClass.FileName] = new SourceFile(Path.GetPathRoot(srcDir) + tmpClass.FilePath);
+                                else
+                                    Console.WriteLine("File not found: " + Path.GetPathRoot(srcDir) + tmpClass.FilePath);
+                            }
+                            #endregion
                         }
-                        #endregion
                     }
                 }
             }
@@ -568,39 +572,41 @@ namespace Aletheia.HitSpectra
                 Dictionary<Block, bool> testcaseSpectra = new Dictionary<Block, bool>();
                 if (testCoverage.Package.Length > 0)
                 {
-                    foreach (Class tmpClass in testCoverage.Package[0].SourceFiles)
+                    for (int a = 0; a < testCoverage.Package.Length; a++)
                     {
-                        string originalFilePath = "";
-                        int overlap = srcDir.ToLower().IndexOf(tmpClass.FilePath.ToLower().Split('\\').First());
-                        if (overlap != -1)
-                            originalFilePath = srcDir.Substring(0, overlap) + tmpClass.FilePath;
-                        else
-                            originalFilePath = srcDir + tmpClass.FilePath;
-                        //if (File.Exists(srcDir + tmpClass.FilePath))
-                        if(File.Exists(originalFilePath))
+                        foreach (Class tmpClass in testCoverage.Package[a].SourceFiles)
                         {
-                            Dictionary<Block, bool> srcFileSpectra = repository[tmpClass.FileName].BuildFctSpectraFromTrace(tmpClass);
-                            foreach (Block tmpFunction in srcFileSpectra.Keys)
+                            string originalFilePath = "";
+                            int overlap = srcDir.ToLower().IndexOf(tmpClass.FilePath.ToLower().Split('\\').First());
+                            if (overlap != -1)
+                                originalFilePath = srcDir.Substring(0, overlap) + tmpClass.FilePath;
+                            else
+                                originalFilePath = srcDir + tmpClass.FilePath;
+                            //if (File.Exists(srcDir + tmpClass.FilePath))
+                            if (File.Exists(originalFilePath))
                             {
-                                if (srcFileSpectra[tmpFunction])
+                                Dictionary<Block, bool> srcFileSpectra = repository[tmpClass.FileName].BuildFctSpectraFromTrace(tmpClass);
+                                foreach (Block tmpFunction in srcFileSpectra.Keys)
                                 {
-                                    allFunctions.Add(tmpFunction);
-                                    testcaseContext.addFunction(tmpFunction, tmpClass);
+                                    if (srcFileSpectra[tmpFunction])
+                                    {
+                                        allFunctions.Add(tmpFunction);
+                                        testcaseContext.addFunction(tmpFunction, tmpClass);
+                                    }
+
+                                    if (!testcaseSpectra.ContainsKey(tmpFunction))
+                                    {
+                                        testcaseSpectra.Add(tmpFunction, srcFileSpectra[tmpFunction]);
+                                    }
                                 }
 
-                                if (!testcaseSpectra.ContainsKey(tmpFunction))
+                                if (!sourceFileSpectras.Keys.Contains(tmpClass))
                                 {
-                                    testcaseSpectra.Add(tmpFunction, srcFileSpectra[tmpFunction]);
+                                    sourceFileSpectras[tmpClass] = srcFileSpectra;
                                 }
-                            }
-
-                            if (!sourceFileSpectras.Keys.Contains(tmpClass))
-                            {
-                                sourceFileSpectras[tmpClass] = srcFileSpectra;
                             }
                         }
                     }
-
                     testcaseContext.addTestcaseSpectra(testcaseSpectra);
                 }
             }
@@ -641,36 +647,39 @@ namespace Aletheia.HitSpectra
                 row["Index"] = nextUnitTestIdent;
                 if (testCoverage.Package.Length > 0)
                 {
-                    foreach (Class tmpClass in testCoverage.Package[0].SourceFiles)
+                    for (int a = 0; a < testCoverage.Package.Length; a++)
                     {
-                        string originalFilePath = "";
-                        int overlap = srcDir.ToLower().IndexOf(tmpClass.FilePath.ToLower().Split('\\').First());
-                        if (overlap != -1)
-                            originalFilePath = srcDir.Substring(0, overlap) + tmpClass.FilePath;
-                        else
-                            originalFilePath = srcDir + tmpClass.FilePath;
-                        //if (File.Exists(srcDir + tmpClass.FilePath))
-                        if (File.Exists(originalFilePath))
+                        foreach (Class tmpClass in testCoverage.Package[a].SourceFiles)
                         {
-                            foreach (Line line in tmpClass.LinesOfCode)
+                            string originalFilePath = "";
+                            int overlap = srcDir.ToLower().IndexOf(tmpClass.FilePath.ToLower().Split('\\').First());
+                            if (overlap != -1)
+                                originalFilePath = srcDir.Substring(0, overlap) + tmpClass.FilePath;
+                            else
+                                originalFilePath = srcDir + tmpClass.FilePath;
+                            //if (File.Exists(srcDir + tmpClass.FilePath))
+                            if (File.Exists(originalFilePath))
                             {
-                                if (line.hits > 0)
+                                foreach (Line line in tmpClass.LinesOfCode)
                                 {
-                                    foreach (Block function in sourceFileSpectras[tmpClass].Keys)
+                                    if (line.hits > 0)
                                     {
-                                        if (function.containsLineAndIsBlockInvokation(line.number))
+                                        foreach (Block function in sourceFileSpectras[tmpClass].Keys)
                                         {
-                                            List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
-                                            string filename = tmpClass.FileName;
-                                            foreach (InvokedFunction fct in functions)
+                                            if (function.containsLineAndIsBlockInvokation(line.number))
                                             {
-                                                string columnEntry = filename + "_" + fct.Name + "_" + line.number;
+                                                List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
+                                                string filename = tmpClass.FileName;
+                                                foreach (InvokedFunction fct in functions)
+                                                {
+                                                    string columnEntry = filename + "_" + fct.Name + "_" + line.number;
 
-                                                addColumnToInvokedFunctionHitSpectraDataTable(columnEntry);
+                                                    addColumnToInvokedFunctionHitSpectraDataTable(columnEntry);
 
-                                                row[columnEntry] = 1;
+                                                    row[columnEntry] = 1;
+                                                }
+                                                break;
                                             }
-                                            break;
                                         }
                                     }
                                 }
@@ -695,36 +704,39 @@ namespace Aletheia.HitSpectra
                 row["Index"] = nextUnitTestIdent;
                 if (testCoverage.Package.Length > 0)
                 {
-                    foreach (Class tmpClass in testCoverage.Package[0].SourceFiles)
+                    for (int a = 0; a < testCoverage.Package.Length; a++)
                     {
-                        string originalFilePath = "";
-                        int overlap = srcDir.ToLower().IndexOf(tmpClass.FilePath.ToLower().Split('\\').First());
-                        if (overlap != -1)
-                            originalFilePath = srcDir.Substring(0, overlap) + tmpClass.FilePath;
-                        else
-                            originalFilePath = srcDir + tmpClass.FilePath;
-                        //if (File.Exists(srcDir + tmpClass.FilePath))
-                        if (File.Exists(originalFilePath))
+                        foreach (Class tmpClass in testCoverage.Package[a].SourceFiles)
                         {
-                            foreach (Line line in tmpClass.LinesOfCode)
+                            string originalFilePath = "";
+                            int overlap = srcDir.ToLower().IndexOf(tmpClass.FilePath.ToLower().Split('\\').First());
+                            if (overlap != -1)
+                                originalFilePath = srcDir.Substring(0, overlap) + tmpClass.FilePath;
+                            else
+                                originalFilePath = srcDir + tmpClass.FilePath;
+                            //if (File.Exists(srcDir + tmpClass.FilePath))
+                            if (File.Exists(originalFilePath))
                             {
-                                if (line.hits > 0)
+                                foreach (Line line in tmpClass.LinesOfCode)
                                 {
-                                    foreach (Block function in sourceFileSpectras[tmpClass].Keys)
+                                    if (line.hits > 0)
                                     {
-                                        if (function.containsLineAndIsBlockInvokation(line.number))
+                                        foreach (Block function in sourceFileSpectras[tmpClass].Keys)
                                         {
-                                            List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
-                                            string filename = tmpClass.FileName;
-                                            foreach (InvokedFunction fct in functions)
+                                            if (function.containsLineAndIsBlockInvokation(line.number))
                                             {
-                                                string columnEntry = filename + "_" + fct.NameWithParameters + "_" + line.number;
+                                                List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
+                                                string filename = tmpClass.FileName;
+                                                foreach (InvokedFunction fct in functions)
+                                                {
+                                                    string columnEntry = filename + "_" + fct.NameWithParameters + "_" + line.number;
 
-                                                addColumnToInvokedFunctionWithParametersHitSpectraDatatable(columnEntry);
+                                                    addColumnToInvokedFunctionWithParametersHitSpectraDatatable(columnEntry);
 
-                                                row[columnEntry] = 1;
+                                                    row[columnEntry] = 1;
+                                                }
+                                                break;
                                             }
-                                            break;
                                         }
                                     }
                                 }
@@ -749,31 +761,34 @@ namespace Aletheia.HitSpectra
                 datarow["Index"] = testcaseName;
                 if (testCoverage.Package.Length > 0)
                 {
-                    foreach (Class tmpClass in testCoverage.Package[0].SourceFiles)
+                    for (int a = 0; a < testCoverage.Package.Length; a++)
                     {
-                        foreach (Line line in tmpClass.LinesOfCode)
+                        foreach (Class tmpClass in testCoverage.Package[a].SourceFiles)
                         {
-                            if (line.hits > 0)
+                            foreach (Line line in tmpClass.LinesOfCode)
                             {
-                                foreach (Block function in testcaseContext.getListOfFunctionsFromSourceFile(tmpClass))
+                                if (line.hits > 0)
                                 {
-                                    if (function.containsLineAndIsBlockInvokation(line.number))
+                                    foreach (Block function in testcaseContext.getListOfFunctionsFromSourceFile(tmpClass))
                                     {
-                                        List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
-                                        // string filename = tmpClass.FileName;
-                                        foreach (InvokedFunction invokedFunction in functions)
+                                        if (function.containsLineAndIsBlockInvokation(line.number))
                                         {
-                                            foreach (Block fctFromAllFunctions in allFunctions)
+                                            List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
+                                            // string filename = tmpClass.FileName;
+                                            foreach (InvokedFunction invokedFunction in functions)
                                             {
-                                                if (invokedFunction.compareFunctionInvokationToFunction(fctFromAllFunctions))
+                                                foreach (Block fctFromAllFunctions in allFunctions)
                                                 {
-                                                    int numberOInvokations = (int)datarow[fctFromAllFunctions.ConcatenatedName];
-                                                    datarow[fctFromAllFunctions.ConcatenatedName] = numberOInvokations + 1;
-                                                    break;
+                                                    if (invokedFunction.compareFunctionInvokationToFunction(fctFromAllFunctions))
+                                                    {
+                                                        int numberOInvokations = (int)datarow[fctFromAllFunctions.ConcatenatedName];
+                                                        datarow[fctFromAllFunctions.ConcatenatedName] = numberOInvokations + 1;
+                                                        break;
+                                                    }
                                                 }
                                             }
+                                            break;
                                         }
-                                        break;
                                     }
                                 }
                             }
@@ -797,15 +812,18 @@ namespace Aletheia.HitSpectra
                 row["Index"] = nextUnitTestIdent;
                 if (testCoverage.Package.Length > 0)
                 {
-                    foreach (Class tmpClass in testCoverage.Package[0].SourceFiles)
+                    for (int a = 0; a < testCoverage.Package.Length; a++)
                     {
-                        foreach (Line loc in tmpClass.LinesOfCode)
+                        foreach (Class tmpClass in testCoverage.Package[a].SourceFiles)
                         {
-                            string lineIdent = tmpClass.FileName + "_" + loc.number;
+                            foreach (Line loc in tmpClass.LinesOfCode)
+                            {
+                                string lineIdent = tmpClass.FileName + "_" + loc.number;
 
-                            addColumnToLineCoverageHitSpectraDataTable(lineIdent);
+                                addColumnToLineCoverageHitSpectraDataTable(lineIdent);
 
-                            row[lineIdent] = loc.hits;
+                                row[lineIdent] = loc.hits;
+                            }
                         }
                     }
                 }
@@ -1443,21 +1461,23 @@ namespace Aletheia.HitSpectra
                     }
 
 
-                    if (projectPath !=null &&projectMode != null && projectMode.ToLower().Equals("vs"))
-                        baseProject = new Project(projectPath);
-                    else if (gtestPath !=null && projectMode != null && projectMode.ToLower().Equals("chromium"))
-                    {
-                        if (testType.Equals("integration"))
-                            baseProject = mimicVSProjectForIntegration(gtestPath);
-                        else
-                            baseProject = mimicVSProject(gtestPath);
-                    }
+                    
                 }
                 catch (Exception e)
                 {
                     Console.Write(e.Message);
                     return false;
                 }
+
+            }
+            if (projectPath != null && projectMode != null && projectMode.ToLower().Equals("vs"))
+                baseProject = new Project(projectPath);
+            else if (gtestPath != null && projectMode != null && projectMode.ToLower().Equals("chromium"))
+            {
+                if (testType.Equals("integration"))
+                    baseProject = mimicVSProjectForIntegration(gtestPath);
+                else
+                    baseProject = mimicVSProject(gtestPath);
             }
 
             return true;
