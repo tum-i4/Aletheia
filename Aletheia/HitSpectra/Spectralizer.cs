@@ -256,7 +256,7 @@ namespace Aletheia.HitSpectra
             string pathLineCoverageHitSpectraMatrix = workingDir + "\\line_coverage_hit_spectra_matrix.csv";
 
             CsvSheetWriter writer;
-
+            argFunctionHitSpectraMatrix = false;
             if (argFunctionHitSpectraMatrix)
             {
                 #region Export Function Hit-Spectra-Matrix
@@ -267,7 +267,7 @@ namespace Aletheia.HitSpectra
                     Console.WriteLine("Function Hit Spectra is written to file\n");
                 #endregion
             }
-
+            
             if (argInvokedFunctionsHitSpectraMatrix)
             {
                 #region Export Invoked Functions Hit-Spectra-Matrix
