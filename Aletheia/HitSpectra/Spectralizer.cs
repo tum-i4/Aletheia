@@ -585,6 +585,8 @@ namespace Aletheia.HitSpectra
                             //if (File.Exists(srcDir + tmpClass.FilePath))
                             if (File.Exists(originalFilePath))
                             {
+                             //   if (tmpClass.FileName.Contains("global_motion.hpp"))
+                               //     Console.WriteLine("hpp found");
                                 Dictionary<Block, bool> srcFileSpectra = repository[tmpClass.FileName].BuildFctSpectraFromTrace(tmpClass);
                                 foreach (Block tmpFunction in srcFileSpectra.Keys)
                                 {

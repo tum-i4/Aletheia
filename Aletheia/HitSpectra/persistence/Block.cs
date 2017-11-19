@@ -26,7 +26,7 @@ namespace Aletheia.HitSpectra.persistence
             this.lineOfDefinition = lineOfDefinition;
             this.sourceFileTheBlockBelongsTo = sourceFile;
 
-            if (sourceFileTheBlockBelongsTo.IndexOf(".cpp") >= 0)
+            /*if (sourceFileTheBlockBelongsTo.IndexOf(".cpp") >= 0)
             {
                 sourceFileTheBlockBelongsTo = sourceFileTheBlockBelongsTo.Substring(0, sourceFileTheBlockBelongsTo.IndexOf(".cpp"));
                 typeOfSourceFile = ".cpp";
@@ -35,9 +35,14 @@ namespace Aletheia.HitSpectra.persistence
             {
                 sourceFileTheBlockBelongsTo = sourceFileTheBlockBelongsTo.Substring(0, sourceFileTheBlockBelongsTo.IndexOf(".h"));
                 typeOfSourceFile = ".h";
+            }*/
+            if (sourceFileTheBlockBelongsTo.IndexOf(".")>=0)
+            {
+                string[] tmp = sourceFileTheBlockBelongsTo.Split('.');
+                sourceFileTheBlockBelongsTo = tmp[0];
+                typeOfSourceFile = "." + tmp[1];
             }
-
-            this.sourceFileTheBlockBelongsTo = this.sourceFileTheBlockBelongsTo.Trim();
+            //this.sourceFileTheBlockBelongsTo = this.sourceFileTheBlockBelongsTo.Trim();
 
             this.listOfBlocksInLine = new Dictionary<int, List<InvokedFunction>>();
             foreach (int linenumber in lines.Keys)
