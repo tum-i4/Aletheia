@@ -1,4 +1,3 @@
-C:\Users\i22\Desktop\Repo\Copy\Aletheia\Aletheia\obj\x64\Release\Aletheia.csprojResolveAssemblyReference.cache
 C:\Users\i22\Desktop\Repo\Copy\Aletheia\Aletheia\bin\x64\Release\Aletheia.exe.config
 C:\Users\i22\Desktop\Repo\Copy\Aletheia\Aletheia\bin\x64\Release\Aletheia.exe
 C:\Users\i22\Desktop\Repo\Copy\Aletheia\Aletheia\bin\x64\Release\MWArray.dll

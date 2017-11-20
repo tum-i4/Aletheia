@@ -48,7 +48,8 @@ namespace Aletheia.HitSpectra
 
         // variables for test execution and evaluation
         private ConcurrentDictionary<string, RunResult> testExecutionIndex;
-        private Dictionary<string, SourceFile> repository;
+        //private Dictionary<string, SourceFile> repository;
+        private Dictionary<string, Dictionary<string, SourceFile>> grandRepo;
         private HashSet<Block> allFunctions;
         private Dictionary<Class, Dictionary<Block, bool>> sourceFileSpectras;
         private List<TestcaseContext> executedTestcases;
@@ -137,7 +138,8 @@ namespace Aletheia.HitSpectra
 
         public void executeTestSuite()
         {
-            repository = new Dictionary<string, SourceFile>();
+            //repository = new Dictionary<string, SourceFile>();
+            grandRepo = new Dictionary<string, Dictionary<string, SourceFile>>();
             testExecutionIndex = new ConcurrentDictionary<string, RunResult>(degreeOfParallelism, 1);
             allFunctions = new HashSet<Block>();
             //trimTestCases();
@@ -532,6 +534,7 @@ namespace Aletheia.HitSpectra
                 string nextUnitTestIdent = testcaseContext.Name;
                 RunResult result = testcaseContext.Result;
                 Coverage testCoverage = testcaseContext.TestCoverage;
+                Dictionary<string, SourceFile> repository = new Dictionary<string, SourceFile>();
                 if (testCoverage.Package.Length > 0)
                 {
                     for (int a = 0; a < testCoverage.Package.Length; a++)
@@ -551,6 +554,8 @@ namespace Aletheia.HitSpectra
                             #endregion
                         }
                     }
+                    grandRepo[nextUnitTestIdent] = repository;
+
                 }
             }
         }
@@ -572,6 +577,7 @@ namespace Aletheia.HitSpectra
                 Dictionary<Block, bool> testcaseSpectra = new Dictionary<Block, bool>();
                 if (testCoverage.Package.Length > 0)
                 {
+                    Dictionary<string, SourceFile> repository = grandRepo[nextUnitTestIdent];
                     for (int a = 0; a < testCoverage.Package.Length; a++)
                     {
                         foreach (Class tmpClass in testCoverage.Package[a].SourceFiles)

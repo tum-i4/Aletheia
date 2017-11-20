@@ -153,7 +153,7 @@ namespace Aletheia
                 EStrategy rankingStrategy = getFaultLocalizationStrategy(rankingMetric);
                 Detective detective = new Clustering.FaultLocalization.Detective(dataTable, rankingStrategy, commandLineArguments, path);
                 detective.DetectFault();
-                CommandLinePrinter.printToCommandLine("Fault Localization compplete\n");
+                CommandLinePrinter.printToCommandLine("Fault Localization complete\n");
 
 
 
