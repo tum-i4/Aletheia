@@ -24,11 +24,11 @@ namespace Aletheia
         private static Dictionary<string, CommandLineArgument> commandLineArguments;
 
         // Datatables with HitSpectraMatrices
-        private static DataTable silFunctionHitSpectraMatrix = null;
-        private static DataTable silCountingFunctionInvokationsHitSpectraMatrix = null;
-        private static DataTable silInvokedFunctionsHitSpectraMatrix = null;
-        private static DataTable silInvokedFunctionsWithParametersHitSpectraMatrix = null;
-        private static DataTable silLineCoverageHitSpectraMatrix = null;
+        private static DataTable  FunctionHitSpectraMatrix = null;
+        private static DataTable  CountingFunctionInvokationsHitSpectraMatrix = null;
+        private static DataTable  InvokedFunctionsHitSpectraMatrix = null;
+        private static DataTable  InvokedFunctionsWithParametersHitSpectraMatrix = null;
+        private static DataTable  LineCoverageHitSpectraMatrix = null;
 
         private static DataTable hilHitSpectraMatrix = null;
         private static string rankingMetric="Jaccard";
@@ -90,11 +90,11 @@ namespace Aletheia
                 if (DEBUG)
                     Console.WriteLine("Exporting of HitSpectra matrix is complete\n");
 
-                silFunctionHitSpectraMatrix = spectralizer.FunctionHitSpectraMatrix;
-                silCountingFunctionInvokationsHitSpectraMatrix = spectralizer.CountingFunctionInvokationsHitSpectraMatrix;
-                silInvokedFunctionsHitSpectraMatrix = spectralizer.InvokedFunctionsHitSpectraMatrix;
-                silInvokedFunctionsWithParametersHitSpectraMatrix = spectralizer.InvokedFunctionsWithParametersHitSpectraMatrix;
-                silLineCoverageHitSpectraMatrix = spectralizer.LineCoverageHitSpectraMatrix;
+                 FunctionHitSpectraMatrix = spectralizer.FunctionHitSpectraMatrix;
+                 CountingFunctionInvokationsHitSpectraMatrix = spectralizer.CountingFunctionInvokationsHitSpectraMatrix;
+                 InvokedFunctionsHitSpectraMatrix = spectralizer.InvokedFunctionsHitSpectraMatrix;
+                 InvokedFunctionsWithParametersHitSpectraMatrix = spectralizer.InvokedFunctionsWithParametersHitSpectraMatrix;
+                 LineCoverageHitSpectraMatrix = spectralizer.LineCoverageHitSpectraMatrix;
                 Console.WriteLine("Spectra Matrix generated\n");
             }
             else if (operation.Equals("Cluster", StringComparison.OrdinalIgnoreCase))
@@ -188,46 +188,46 @@ namespace Aletheia
             if(operation.Equals("clustering", StringComparison.OrdinalIgnoreCase))
             {
                 
-                string output = "\nClustering SIL HitSpectraMatrices\n";
+                string output = "\nClustering   HitSpectraMatrices\n";
                 CommandLinePrinter.printToCommandLine(output);
-                if (silFunctionHitSpectraMatrix != null)
+                if ( FunctionHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_FunctionHitSpectraMatrix";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(silFunctionHitSpectraMatrix, path);
+                    doClustering( FunctionHitSpectraMatrix, path);
                 }
 
-                if (silCountingFunctionInvokationsHitSpectraMatrix != null)
+                if ( CountingFunctionInvokationsHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_CountingFunctionInvokationsHitSpectraMatrix";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(silCountingFunctionInvokationsHitSpectraMatrix, path);
+                    doClustering( CountingFunctionInvokationsHitSpectraMatrix, path);
                 }
 
-                if (silInvokedFunctionsHitSpectraMatrix != null)
+                if ( InvokedFunctionsHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_InvokedFunctionsHitSpectraMatrix";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(silInvokedFunctionsHitSpectraMatrix, path);
+                    doClustering( InvokedFunctionsHitSpectraMatrix, path);
                 }
 
-                if (silInvokedFunctionsWithParametersHitSpectraMatrix != null)
+                if ( InvokedFunctionsWithParametersHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_InvokedFunctionsWithParametersHitSpectraMatrix";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(silInvokedFunctionsWithParametersHitSpectraMatrix, path);
+                    doClustering( InvokedFunctionsWithParametersHitSpectraMatrix, path);
                 }
 
-                if (silLineCoverageHitSpectraMatrix != null)
+                if ( LineCoverageHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_LineCoverageHitSpectraMatrix";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(silLineCoverageHitSpectraMatrix, path);
+                    doClustering( LineCoverageHitSpectraMatrix, path);
                 }
 
             }
@@ -269,7 +269,7 @@ namespace Aletheia
             try
             {
                 return outDir
-                + "\\Analysis_Fault_Localization_"
+                + "\\"+operation.ToUpper()+"_"
                 + DateTime.Now.Year + "-"
                 + (DateTime.Now.Month >= 10 ? DateTime.Now.Month + "-" : "0" + DateTime.Now.Month + "-")
                 + (DateTime.Now.Day >= 10 ? DateTime.Now.Day + "_" : "0" + DateTime.Now.Day + "_")

@@ -251,11 +251,11 @@ namespace Aletheia.HitSpectra
 
         public void exportHitSpectraMatrices()
         {
-            string pathFunctionHitSpectraMatrix = workingDir + "\\function_hit_spectra_matrix.csv";
-            string pathInvokedFunctionsHitSpectraMatrix = workingDir + "\\functions_call_hit_spectra_matrix.csv";
-            string pathInvokedFunctionsWithParametersHitSpectraMatrix = workingDir + "\\functions_call_with_parameters_hit_spectra_matrix.csv";
+            string pathFunctionHitSpectraMatrix = workingDir + "\\function_definition_spectra.csv";
+            string pathInvokedFunctionsHitSpectraMatrix = workingDir + "\\functions_call_hit_spectra.csv";
+            string pathInvokedFunctionsWithParametersHitSpectraMatrix = workingDir + "\\functions_call_with_parameters_hit_spectra.csv";
             string pathCountingFunctionInvokationsHitSpectraMatrix = workingDir + "\\function_call_count_hit_spectra_matrix.csv";
-            string pathLineCoverageHitSpectraMatrix = workingDir + "\\statement_coverage_hit_spectra_matrix.csv";
+            string pathLineCoverageHitSpectraMatrix = workingDir + "\\statement_hit_spectra.csv";
 
             CsvSheetWriter writer;
             argFunctionHitSpectraMatrix = false;
