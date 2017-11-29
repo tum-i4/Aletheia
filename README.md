@@ -34,3 +34,6 @@ Sample command to do fault localization is ```Aletheia.exe do=faultLocalization 
 
 If you do not provide any ranking metric, Jaccard will be used as default Ranking metric. 
 
+### 4. Contact
+Mojdeh Golagha (golagha@in.tum.de)
+Abu Mohammed Raisuddin (am.raisuddin@tum.de)
