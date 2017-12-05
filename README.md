@@ -20,13 +20,17 @@ Alethia has three modules
 * Fault Localization: to localize the faults
 
 Help can be obtained by executing:
+
 ```Aletheia.exe do=getHelp```
 
 A sample command to generate Hit Spectra:
+
 ```Aletheia.exe do=GenerateHitSpectra separator=; project_path=path\to\*.vcxproj file source_directory=path\to\source degreeofparallelism=12 gtest_path=path\to\gtest.exe ```
 
-**For Clustering and Fault Localization, it is necesaary that the first column be ```Index``` and the last column be ```Result```**
-Sample command to do clustering on a hit spectra matrix is ```Aletheia.exe do=cluster separator=, input_path=path\to\your\data.csv  clustering_method=maxclust linkage_method=average linkage_metric=euclidean ```
+**For Clustering and Fault Localization, it is necesaary that the first column of spectrum csv file be labeled as ```Index``` and the last column be labeled as ```Result```**
+Sample command to do clustering on a hit spectrum:
+
+```Aletheia.exe do=cluster separator=, input_path=path\to\your\data.csv  clustering_method=maxclust linkage_method=average linkage_metric=euclidean ```
 
 Sample command to do fault localization is ```Aletheia.exe do=faultLocalization separator=; input_path=path\to\your\data.csv ranking_metric=Tarantula``` Different ranking metrics can be used for fault localization, Our tool allows the following ranking metrics. 
 * Dstar
