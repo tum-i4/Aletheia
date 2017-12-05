@@ -1,5 +1,7 @@
 ## Aletheia
-### 1. Requirement
+A framework for failure diagnosis
+
+### 1. Requirements
 a) Matlab Runtime 2016a<br />
 b) OpenCppCoverage, [has to be added in the path]<br />
 
@@ -13,12 +15,12 @@ You can get the binaries in bin folder. dll files are necessary. The tool is por
 
 ### 3. Components
 Alethia has three modules
-* Data Generation
-* Failure Clustering
-* Fault Localization
+* Data Generation: to generte hit/count spectra
+* Failure Clustering: to cluster failing tests with respect to hypothesized faults
+* Fault Localization: to localize the faults
 
 Help can be obtained by executing ```Aletheia.exe do=getHelp```
-A sample command to generate Hit Spectra matrix is ```Aletheia.exe do=GenerateHitSpectra separator=; project_path=path\to\*.vcxproj file source_directory=path\to\source degreeofparallelism=12 gtest_path=path\to\gtest.exe ```
+A sample command to generate Hit Spectra is ```Aletheia.exe do=GenerateHitSpectra separator=; project_path=path\to\*.vcxproj file source_directory=path\to\source degreeofparallelism=12 gtest_path=path\to\gtest.exe ```
 
 **For Clustering and Fault Localization, it is necesaary that the first column be ```Index``` and the last column be ```Result```**
 Sample command to do clustering on a hit spectra matrix is ```Aletheia.exe do=cluster separator=, input_path=path\to\your\data.csv  clustering_method=maxclust linkage_method=average linkage_metric=euclidean ```
