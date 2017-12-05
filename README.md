@@ -10,8 +10,8 @@ b) OpenCppCoverage, [has to be added in the path]<br />
 ### 2. Getting Aletheia
 Run command ```git clone https://github.com/tum-i22/Aletheia.git```<br />
 Then ```cd Aletheia```<br />
-You can find the visual studio solution file threre, open it and build the solution. <br />
-You can get the binaries in bin folder. dll files are necessary. The tool is portable, if you copy the exe file along with dll files it will work. 
+Find the visual studio solution file, open it and build the solution. <br />
+Or copy the exe file along with dll files. Aletheia is portable. Find the binaries in bin folder. dll files are needed. 
 
 ### 3. Components
 Alethia has three modules
@@ -19,8 +19,11 @@ Alethia has three modules
 * Failure Clustering: to cluster failing tests with respect to hypothesized faults
 * Fault Localization: to localize the faults
 
-Help can be obtained by executing ```Aletheia.exe do=getHelp```
-A sample command to generate Hit Spectra is ```Aletheia.exe do=GenerateHitSpectra separator=; project_path=path\to\*.vcxproj file source_directory=path\to\source degreeofparallelism=12 gtest_path=path\to\gtest.exe ```
+Help can be obtained by executing:
+```Aletheia.exe do=getHelp```
+
+A sample command to generate Hit Spectra:
+```Aletheia.exe do=GenerateHitSpectra separator=; project_path=path\to\*.vcxproj file source_directory=path\to\source degreeofparallelism=12 gtest_path=path\to\gtest.exe ```
 
 **For Clustering and Fault Localization, it is necesaary that the first column be ```Index``` and the last column be ```Result```**
 Sample command to do clustering on a hit spectra matrix is ```Aletheia.exe do=cluster separator=, input_path=path\to\your\data.csv  clustering_method=maxclust linkage_method=average linkage_metric=euclidean ```
