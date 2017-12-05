@@ -43,6 +43,9 @@ If you do not choose any ranking metric, Jaccard will be used as the default.
 
 ### 4. Contact
 In case of question, simply email us at
+
 Mojdeh Golagha (golagha@in.tum.de) <br />
+
 or
+
 Abu Mohammed Raisuddin (am.raisuddin@tum.de)
