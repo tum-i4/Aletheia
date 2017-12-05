@@ -27,22 +27,22 @@ A sample command to generate Hit Spectra:
 
 ```Aletheia.exe do=GenerateHitSpectra separator=; project_path=path\to\*.vcxproj file source_directory=path\to\source degreeofparallelism=12 gtest_path=path\to\gtest.exe ```
 
-**For Clustering and Fault Localization, it is necesaary that the first column of spectrum csv file be labeled as ```Index``` and the last column be labeled as ```Result```**
+**For Clustering and Fault Localization, the first column of spectrum csv file must be labeled as ```Index``` and the last column must be labeled as ```Result```**
+
 Sample command to do clustering on a hit spectrum:
 
 ```Aletheia.exe do=cluster separator=, input_path=path\to\your\data.csv  clustering_method=maxclust linkage_method=average linkage_metric=euclidean ```
 
-Sample command to do fault localization is ```Aletheia.exe do=faultLocalization separator=; input_path=path\to\your\data.csv ranking_metric=Tarantula``` Different ranking metrics can be used for fault localization, Our tool allows the following ranking metrics. 
-* Dstar
-* Dstar2
-* Dstar3
-* Dstar4
-* Jaccard
-* Tarantula
-* Ochiai
+Sample command to do fault localization:
 
-If you do not provide any ranking metric, Jaccard will be used as default Ranking metric. 
+```Aletheia.exe do=faultLocalization separator=; input_path=path\to\your\data.csv ranking_metric=Tarantula``` 
+
+Different ranking metrics can be used for fault localization, Our tool allows the following ranking metrics: 
+Dstar1, Dstar2, Dstar3, Dstar4, Jaccard, Tarantula and Ochiai.
+If you do not choose any ranking metric, Jaccard will be used as the default. 
 
 ### 4. Contact
+In case of question, simply email us at
 Mojdeh Golagha (golagha@in.tum.de) <br />
+or
 Abu Mohammed Raisuddin (am.raisuddin@tum.de)
