@@ -2,8 +2,8 @@
 A framework for failure diagnosis
 
 ### 1. Requirements
-a) Matlab Runtime 2016a<br />
-b) OpenCppCoverage, [has to be added in the path]<br />
+a) Matlab Runtime 2016a <br /> 
+b) OpenCppCoverage tool, [has to be added in the path]<br />
 
 
 
@@ -45,7 +45,4 @@ If you do not choose any ranking metric, Jaccard will be used as the default.
 In case of question, simply email us at
 
 Mojdeh Golagha (golagha@in.tum.de) <br />
-
-or
-
 Abu Mohammed Raisuddin (am.raisuddin@tum.de)
