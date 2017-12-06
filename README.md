@@ -3,7 +3,7 @@ A framework for failure diagnosis
 
 ### 1. Requirements
 a) Matlab Runtime 2016a <br /> 
-b) OpenCppCoverage tool, [has to be added in the path]<br />
+b) OpenCppCoverage tool, [has to be added in the System path variable]<br />
 
 
 
