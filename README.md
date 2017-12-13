@@ -41,7 +41,12 @@ Different ranking metrics can be used for fault localization, Our tool allows th
 Dstar1, Dstar2, Dstar3, Dstar4, Jaccard, Tarantula and Ochiai.
 If you do not choose any ranking metric, Jaccard will be used as the default. 
 
-### 4. Contact
+### 4. Plugin / VS Extension
+There is a seperate Visual Studio Extension project located in https://github.com/tum-i22/AletheiaPlugin . 
+
+
+
+### 5. Contact
 In case of question, simply email us at
 
 Mojdeh Golagha (golagha@in.tum.de) <br />
