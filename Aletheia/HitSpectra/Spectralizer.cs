@@ -265,7 +265,7 @@ namespace Aletheia.HitSpectra
 
         public void exportHitSpectraMatrices()
         {
-            string pathFunctionHitSpectraMatrix = workingDir + "\\function_definition_spectra.csv";
+            string pathFunctionHitSpectraMatrix = workingDir + "\\function_spectra.csv";
             string pathInvokedFunctionsHitSpectraMatrix = workingDir + "\\functions_call_hit_spectra.csv";
             string pathInvokedFunctionsWithParametersHitSpectraMatrix = workingDir + "\\functions_call_with_parameters_hit_spectra.csv";
             string pathCountingFunctionInvokationsHitSpectraMatrix = workingDir + "\\function_call_count_hit_spectra_matrix.csv";
