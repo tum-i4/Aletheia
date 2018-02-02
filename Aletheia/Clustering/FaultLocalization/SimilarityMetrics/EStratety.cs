@@ -12,7 +12,7 @@ namespace Aletheia.Clustering.FaultLocalization.SimilarityMetrics
         Dstar2,
         Dstar3,
         Dstar4,
-        Dstar5,
+        Dstar5, 
         Jaccard,
         Hamming, 
         Ochiai,

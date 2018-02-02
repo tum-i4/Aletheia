@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <StartArguments>do=GenerateHitSpectra project_path=C:\Users\i22\buildcv\modules\core\opencv_test_core.vcxproj source_directory=C:\Users\i22\opencv degreeofparallelism=12 gtest_path=C:\Users\i22\buildcv\bin\Debug\opencv_test_cored.exe exportpattern=11111</StartArguments>
+    <StartArguments>do=faultLocalization input_path=D:\calib3d_bug_2\spectra\statement_hit_spectra.csv separator=, ranking_metric=Dstar4</StartArguments>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
   <PropertyGroup>
@@ -15,8 +15,7 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <StartArguments>
-    </StartArguments>
+    <StartArguments>do=Cluster input_path=C:\Users\raisu\Downloads\GENERATEHITSPECTRA\TestCoverage\functions_call_hit_spectra.csv separator=,</StartArguments>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
 </Project>

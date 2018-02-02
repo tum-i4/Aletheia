@@ -29,7 +29,7 @@ namespace Aletheia.HitSpectra
         private string outDir = null;
         private string projName = "opencv";
         private string gtestPath = null;
-        private string projectMode = "vs";
+        private string projectMode = "default";
         private static string ninjaName = "";
         private static string testType = "";
         private char separator = ';';
@@ -60,12 +60,26 @@ namespace Aletheia.HitSpectra
         private DataTable invokedFunctionsWithParametersHitSpectraMatrix;
         private DataTable countingFunctionInvokationsHitSpectraMatrix;
         private DataTable lineCoverageHitSpectraMatrix;
-
+        private List<string> blackList;
 
         public Spectralizer(Dictionary<string, CommandLineArgument> commandLineArguments, string parentPath)
         {
             this.commandLineArguments = commandLineArguments;
             this.outDir = parentPath;
+            this.blackList = new List<string>();
+            this.blackList.Add("Torch_Importer");
+            //this.blackList.Add("Torch_Importer.ENet_accuracy");
+            //this.blackList.Add("Torch_Importer.OpenFace_accuracy");
+            //this.blackList.Add("Torch_Importer.net_non_spatial");
+            //this.blackList.Add("Torch_Importer.net_conv_gemm_lrn");
+            //this.blackList.Add("Torch_Importer.net_padding");
+            //this.blackList.Add("Torch_Importer.net_normalize");
+            //this.blackList.Add("Torch_Importer.net_inception_block");
+            //this.blackList.Add("Torch_Importer.net_lp_pooling");
+            //this.blackList.Add("Torch_Importer.net_logsoftmax");
+            //this.blackList.Add("Torch_Importer.net_softmax");
+            this.blackList.Add("Test_TensorFlow");
+ 
 
             //--> Check if there is a valid installation of OpenCppCoverage
             if (!checkIfOpenCppCoverageIsInstalledOnHostPC()) { return; }
@@ -81,7 +95,7 @@ namespace Aletheia.HitSpectra
                 Console.WriteLine("Parameters Validated\n");
             string toPrint = null;
             //-->Sanity-Check of project-directories passed
-            if (projectMode.Equals("vs"))
+            if (projectMode.Equals("default"))
             {
                 toPrint = "Coverage-analysis for " + baseProject.Name
                     + "\n--------------------------------------------------"
@@ -258,7 +272,7 @@ namespace Aletheia.HitSpectra
             string pathLineCoverageHitSpectraMatrix = workingDir + "\\statement_hit_spectra.csv";
 
             CsvSheetWriter writer;
-            argFunctionHitSpectraMatrix = false;
+            //argFunctionHitSpectraMatrix = false;
             if (argFunctionHitSpectraMatrix)
             {
                 #region Export Function Hit-Spectra-Matrix
@@ -529,6 +543,7 @@ namespace Aletheia.HitSpectra
         #region Generic Analyzing stuff
         private void analyzeOpenCppCoverageFiles()
         {
+            Console.WriteLine("Number of context: "+executedTestcases.Count());
             foreach (TestcaseContext testcaseContext in executedTestcases)
             {
                 string nextUnitTestIdent = testcaseContext.Name;
@@ -537,6 +552,7 @@ namespace Aletheia.HitSpectra
                 Dictionary<string, SourceFile> repository = new Dictionary<string, SourceFile>();
                 if (testCoverage.Package.Length > 0)
                 {
+                    Console.WriteLine("Number of Packages to be extracted: "+testCoverage.Package.Length+"\n");
                     for (int a = 0; a < testCoverage.Package.Length; a++)
                     {
                         foreach (Class tmpClass in testCoverage.Package[a].SourceFiles)
@@ -916,11 +932,15 @@ namespace Aletheia.HitSpectra
             Task[] taskPool = new Task[degreeOfParallelism];
 
 
+            int testCount = 0;
 
+            testCount = baseProject.UnitTestCount;
+            int executedTests = 0 ;
             for (int x = 0; x < degreeOfParallelism; x++)
             {
                 try
                 {
+                    
                     taskPool[x] = Task.Factory.StartNew(() =>
                     {
                         //Indicator if this task should terminate
@@ -944,17 +964,23 @@ namespace Aletheia.HitSpectra
                                 //If there is no nextTest to execute, stop execution
                                 if (nextUnitTestIdent == null)
                                     break;
+                                if (blackList.FindIndex(o => string.Equals(nextUnitTestIdent, o, StringComparison.OrdinalIgnoreCase)) > -1)
+                                {
+                                    continue;
+                                }
+                                
 
                                 //Execute unit-test
                                 Task<RunResult> currentTest;
-                                if (projectMode.Equals("vs"))
+                                
+                                if (projectMode.Equals("default"))
                                     currentTest = executeUnitTestVS(projName, nextUnitTestIdent, workingDir, baseProject.getExecutable(), executionTimeout);
                                 else // if(projectMode.Equals("chromium"))
                                 {
                                     currentTest = executeUnitTest(projName, nextUnitTestIdent, workingDir, gtestPath, executionTimeout);
 
                                 }
-
+                                
                                 //Wait for the test to finish
                                 currentTest.Wait();
 
@@ -963,24 +989,32 @@ namespace Aletheia.HitSpectra
                                 if ((currentTest.Result == RunResult.FAILED || currentTest.Result == RunResult.PASSED))
                                 {
                                     //Step 1: Deserialize the coverage-information
-                                    XmlSerializer serializer = new XmlSerializer(typeof(Coverage));
-                                    string covName = getCovname(baseProject.getExecutable());
-                                    StreamReader reader = new StreamReader(workingDir + "\\" + nextUnitTestIdent + "\\" + covName + "Coverage.xml");
-                                    Coverage testCov = (Coverage)serializer.Deserialize(reader);
-                                    reader.Close();
+                                    try
+                                    {
+                                        XmlSerializer serializer = new XmlSerializer(typeof(Coverage));
+                                        string covName = getCovname(baseProject.getExecutable());
+                                        StreamReader reader = new StreamReader(workingDir + "\\" + nextUnitTestIdent + "\\" + covName + "Coverage.xml");
 
-                                    TestcaseContext testcaseContext = new TestcaseContext(nextUnitTestIdent, currentTest.Result, testCov);
-                                    _AccessExecutedTestcasesSemaphore.Wait();
-                                    executedTestcases.Add(testcaseContext);
-                                    _AccessExecutedTestcasesSemaphore.Release();
+                                        Coverage testCov = (Coverage)serializer.Deserialize(reader);
+                                        reader.Close();
+
+                                        TestcaseContext testcaseContext = new TestcaseContext(nextUnitTestIdent, currentTest.Result, testCov);
+                                        _AccessExecutedTestcasesSemaphore.Wait();
+                                        executedTestcases.Add(testcaseContext);
+                                        executedTests++;
+                                        _AccessExecutedTestcasesSemaphore.Release();
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        Console.Write(e.Message);
+                                    }
+                                    
                                 }
 
                                 _AccessConsoleSemaphore.Wait();
-                                int testCount = 0;
+                                
 
-                                testCount = baseProject.UnitTestCount;
-
-                                string logLine = createLogExecutionResult(testCount, nextUnitTestIdent, currentTest.Result);
+                                string logLine = createLogExecutionResult(testCount-executedTests+1, nextUnitTestIdent, currentTest.Result);
                                 Console.WriteLine(logLine);
                                 _AccessConsoleSemaphore.Release();
                                 //nextUnitTestIdent = null;
@@ -1034,7 +1068,7 @@ namespace Aletheia.HitSpectra
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+            //Console.WriteLine(cmd.StandardOutput.ReadToEnd());
 
             // openCpp.StartInfo.FileName = ProjectConfig.GetInstalledProgramPath("OpenCppCoverage");
             //openCpp.StartInfo.FileName = "C:\\Windows\\System32\\cmd.exe";
@@ -1478,7 +1512,7 @@ namespace Aletheia.HitSpectra
                 }
 
             }
-            if (projectPath != null && projectMode != null && projectMode.ToLower().Equals("vs"))
+            if (projectPath != null && projectMode != null && projectMode.ToLower().Equals("default"))
                 baseProject = new Project(projectPath);
             else if (gtestPath != null && projectMode != null && projectMode.ToLower().Equals("chromium"))
             {
@@ -1743,7 +1777,7 @@ namespace Aletheia.HitSpectra
             if (!validGtestExecutableExists()) { return false; }
 
             //GtestPath is mandatory, check for existence
-
+            checkIfThereAreAnyTestcasesInTestSuite();
             return true;
         }
 
@@ -1752,7 +1786,7 @@ namespace Aletheia.HitSpectra
         {
 
             //Validation: Only proceed if there is a valid path to the testsuite 
-            if (projectMode.Equals("vs"))
+            if (projectMode.Equals("default"))
             {
                 if (baseProject == null)
                 {
@@ -1817,7 +1851,7 @@ namespace Aletheia.HitSpectra
 
         private bool validGtestExecutableExists()
         {
-            if(projectMode.Equals("vs"))
+            if(projectMode.Equals("default"))
             {
                 // check if the default exe exists
                 if (System.IO.File.Exists(baseProject.getExecutable()))

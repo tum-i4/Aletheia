@@ -116,8 +116,12 @@ namespace Aletheia.Clustering
         {
             string output = "\nDoing Linkage\n";
             CommandLinePrinter.printToCommandLine(output);
-
-            MWArray tmpSolution = matlabClustering.matlabLinkage(new MWNumericArray(failedTestcasesInHitSpectraMatrix), new MWCharArray(linkage_method), new MWCharArray(linkage_metric));
+            int numFailedTest = failedTestcasesInHitSpectraMatrix.GetLength(0);
+            MWArray tmpSolution;
+            if (numFailedTest == 1)
+                tmpSolution = new MWNumericArray(failedTestcasesInHitSpectraMatrix);
+            else
+                 tmpSolution= matlabClustering.matlabLinkage(new MWNumericArray(failedTestcasesInHitSpectraMatrix), new MWCharArray(linkage_method), new MWCharArray(linkage_metric));
             binaryClusterTree = Tools.buildTwoDimensionalDoubleArrayFromMWArray(tmpSolution);
 
             output = "\nFinished Linkage\n";
@@ -455,11 +459,27 @@ namespace Aletheia.Clustering
             {
                 int value = (int)row[hitSpectraMatrix.Columns.Count - 1];
 
-                if (value == 0) numbOfFailedTestcases++;
-                if (numbOfFailedTestcases >= 2) return true;
+                if (value == 0)
+                    numbOfFailedTestcases++;
+                
             }
-
-            return false;
+            if(numbOfFailedTestcases==1)
+            {
+                writeInstruction();
+                return false;
+            }
+            else if (numbOfFailedTestcases >= 2)
+                return true;
+            else return false;
+        }
+        private void writeInstruction()
+        {
+            string s = "There is only one failed test case, therefore clustering is not possible, but the input matrix can be used for fault localization\n";
+            string path = parentPath + "\\" + "instruction" + ".csv";
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+            {
+                file.Write(s);
+            }
         }
 
         private void buildHitSpectraMatrixArray()

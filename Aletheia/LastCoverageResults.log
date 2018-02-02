@@ -1,0 +1,108 @@
+[2018-01-23 16:20:27] [info] Start Program:
+Path:"C:\Users\i22\opencv-3.4.0\build\bin\Release\opencv_test_dnn.exe"
+Arguments:--gtest_filter=Test_Caffe.memory_read 
+Working directory: not set.
+Modules: Selected: * Excluded: 
+Sources: Selected: C:\Users\i22\opencv-3.4.0\opencv-3.4.0 Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 1
+Export: Html 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+
+[2018-01-23 16:20:27] [info] Module: C:\Users\i22\opencv-3.4.0\build\bin\Release\opencv_test_dnn.exe is selected because it matches selected pattern: *
+[2018-01-23 16:20:29] [info] Module: C:\Windows\System32\ntdll.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:29] [warning] Cannot find pdb for C:\Windows\System32\ntdll.dll
+[2018-01-23 16:20:29] [info] Module: C:\Windows\System32\kernel32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:29] [warning] Cannot find pdb for C:\Windows\System32\kernel32.dll
+[2018-01-23 16:20:29] [info] Module: C:\Program Files\AVAST Software\Avast\x64\aswhooka.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:29] [warning] Cannot find pdb for C:\Program Files\AVAST Software\Avast\x64\aswhooka.dll
+[2018-01-23 16:20:29] [info] Module: C:\Windows\System32\KernelBase.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:29] [warning] Cannot find pdb for C:\Windows\System32\KernelBase.dll
+[2018-01-23 16:20:29] [info] Module: C:\Windows\System32\ucrtbase.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:29] [warning] Cannot find pdb for C:\Windows\System32\ucrtbase.dll
+[2018-01-23 16:20:29] [info] Module: C:\Users\i22\opencv-3.4.0\build\bin\Release\opencv_dnn340.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [info] Module: C:\Users\i22\opencv-3.4.0\build\bin\Release\opencv_highgui340.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\gdi32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\gdi32.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\gdi32full.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\gdi32full.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\msvcp_win.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\msvcp_win.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\user32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\user32.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\win32u.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\win32u.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\comdlg32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\comdlg32.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\msvcrt.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\msvcrt.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\combase.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\combase.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\rpcrt4.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\rpcrt4.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\bcryptprimitives.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\bcryptprimitives.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\SHCore.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\SHCore.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\shlwapi.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\shlwapi.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\shell32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\shell32.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\cfgmgr32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\cfgmgr32.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\windows.storage.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\windows.storage.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\advapi32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\advapi32.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\sechost.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\sechost.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\kernel.appcore.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\kernel.appcore.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\powrprof.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\powrprof.dll
+[2018-01-23 16:20:40] [info] Module: C:\Windows\System32\profapi.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:40] [warning] Cannot find pdb for C:\Windows\System32\profapi.dll
+[2018-01-23 16:20:40] [info] Module: C:\Users\i22\opencv-3.4.0\build\bin\Release\opencv_imgcodecs340.dll is selected because it matches selected pattern: *
+[2018-01-23 16:20:48] [info] Module: C:\Users\i22\opencv-3.4.0\build\bin\Release\opencv_imgproc340.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:02] [info] Module: C:\Users\i22\opencv-3.4.0\build\bin\Release\opencv_core340.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:13] [info] Module: C:\Windows\System32\msvcp140.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:13] [warning] Cannot find pdb for C:\Windows\System32\msvcp140.dll
+[2018-01-23 16:21:13] [info] Module: C:\Windows\System32\vcruntime140.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:13] [warning] Cannot find pdb for C:\Windows\System32\vcruntime140.dll
+[2018-01-23 16:21:13] [info] Module: C:\Users\i22\opencv-3.4.0\build\bin\Release\opencv_videoio340.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\ole32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\ole32.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\oleaut32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\oleaut32.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_5.82.15063.413_none_0e0f5dcc67adff4e\comctl32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_5.82.15063.413_none_0e0f5dcc67adff4e\comctl32.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\concrt140.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\concrt140.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\msvfw32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\msvfw32.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\avifil32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\avifil32.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\avicap32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\avicap32.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\winmm.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\winmm.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\msacm32.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\msacm32.dll
+[2018-01-23 16:21:14] [info] Module: C:\Windows\System32\winmmbase.dll is selected because it matches selected pattern: *
+[2018-01-23 16:21:14] [warning] Cannot find pdb for C:\Windows\System32\winmmbase.dll
+[2018-01-23 16:21:14] [error] 
+
+----------------------------------------------------
+*** Unhandled exception code: 3765269347: Exception C++
+----------------------------------------------------
+If your application was built with optimization enabled, make sure you use --optimized_build
+
+[2018-01-23 16:21:26] [info] ----------------------------------------------------
+[2018-01-23 16:21:26] [info] Coverage generated in Folder C:\Users\i22\Desktop\Repo\Copy\Aletheia\Aletheia\CoverageReport-2018-01-23-16h21m14s
+[2018-01-23 16:21:26] [info] ----------------------------------------------------
+[2018-01-23 16:21:26] [error] Your program stop with error code: -529697949

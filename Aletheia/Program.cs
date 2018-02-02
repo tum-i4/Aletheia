@@ -63,7 +63,7 @@ namespace Aletheia
 
             // Check, if output directory is available
             if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.OUTPUT_DIRECTORY))
-                outputDirectory = "C:\\HitSpectras";
+                outputDirectory = "D:\\HitSpectras";
             else
                 outputDirectory = commandLineArguments[PossibleCommandLineArguments.OUTPUT_DIRECTORY].Value;
             if ((workingDirectory = Program.createWorkingDirectory(outputDirectory)) == null) return;
@@ -76,7 +76,7 @@ namespace Aletheia
             {
                 if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.GTEST_PATH))
                 {
-                    Console.WriteLine("Gtest path is mandatory for OpenCV project\n");
+                    Console.WriteLine("Gtest path is mandatory for current settings.\n");
                     return;
 
                 }
@@ -192,7 +192,7 @@ namespace Aletheia
                 CommandLinePrinter.printToCommandLine(output);
                 if ( FunctionHitSpectraMatrix != null)
                 {
-                    string pathAdditional = "Clustering_FunctionHitSpectraMatrix";
+                    string pathAdditional = "Clustering_FunctionHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
                     doClustering( FunctionHitSpectraMatrix, path);
@@ -200,7 +200,7 @@ namespace Aletheia
 
                 if ( CountingFunctionInvokationsHitSpectraMatrix != null)
                 {
-                    string pathAdditional = "Clustering_CountingFunctionInvokationsHitSpectraMatrix";
+                    string pathAdditional = "Clustering_CountingFunctionInvokationsHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
                     doClustering( CountingFunctionInvokationsHitSpectraMatrix, path);
@@ -208,7 +208,7 @@ namespace Aletheia
 
                 if ( InvokedFunctionsHitSpectraMatrix != null)
                 {
-                    string pathAdditional = "Clustering_InvokedFunctionsHitSpectraMatrix";
+                    string pathAdditional = "Clustering_InvokedFunctionsHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
                     doClustering( InvokedFunctionsHitSpectraMatrix, path);
@@ -216,7 +216,7 @@ namespace Aletheia
 
                 if ( InvokedFunctionsWithParametersHitSpectraMatrix != null)
                 {
-                    string pathAdditional = "Clustering_InvokedFunctionsWithParametersHitSpectraMatrix";
+                    string pathAdditional = "Clustering_InvokedFunctionsWithParametersHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
                     doClustering( InvokedFunctionsWithParametersHitSpectraMatrix, path);
@@ -224,7 +224,7 @@ namespace Aletheia
 
                 if ( LineCoverageHitSpectraMatrix != null)
                 {
-                    string pathAdditional = "Clustering_LineCoverageHitSpectraMatrix";
+                    string pathAdditional = "Clustering_LineCoverageHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
                     doClustering( LineCoverageHitSpectraMatrix, path);
