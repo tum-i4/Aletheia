@@ -31,6 +31,5 @@ C:\Users\raisu\Desktop\Aletheia\Aletheia\bin\x64\Debug\Aletheia.pdb
 C:\Users\raisu\Desktop\Aletheia\Aletheia\bin\x64\Debug\MWArray.dll
 C:\Users\raisu\Desktop\Aletheia\Aletheia\bin\x64\Debug\MwMatlabClustering.dll
 C:\Users\raisu\Desktop\Aletheia\Aletheia\bin\x64\Debug\MWArray.xml
-C:\Users\raisu\Desktop\Aletheia\Aletheia\obj\x64\Debug\Aletheia.csprojResolveAssemblyReference.cache
 C:\Users\raisu\Desktop\Aletheia\Aletheia\obj\x64\Debug\Aletheia.exe
 C:\Users\raisu\Desktop\Aletheia\Aletheia\obj\x64\Debug\Aletheia.pdb

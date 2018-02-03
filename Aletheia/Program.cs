@@ -63,7 +63,7 @@ namespace Aletheia
 
             // Check, if output directory is available
             if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.OUTPUT_DIRECTORY))
-                outputDirectory = "D:\\HitSpectras";
+                outputDirectory = "C:\\HitSpectras";
             else
                 outputDirectory = commandLineArguments[PossibleCommandLineArguments.OUTPUT_DIRECTORY].Value;
             if ((workingDirectory = Program.createWorkingDirectory(outputDirectory)) == null) return;

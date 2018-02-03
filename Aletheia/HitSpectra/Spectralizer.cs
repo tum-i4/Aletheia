@@ -66,19 +66,7 @@ namespace Aletheia.HitSpectra
         {
             this.commandLineArguments = commandLineArguments;
             this.outDir = parentPath;
-            this.blackList = new List<string>();
-            this.blackList.Add("Torch_Importer");
-            //this.blackList.Add("Torch_Importer.ENet_accuracy");
-            //this.blackList.Add("Torch_Importer.OpenFace_accuracy");
-            //this.blackList.Add("Torch_Importer.net_non_spatial");
-            //this.blackList.Add("Torch_Importer.net_conv_gemm_lrn");
-            //this.blackList.Add("Torch_Importer.net_padding");
-            //this.blackList.Add("Torch_Importer.net_normalize");
-            //this.blackList.Add("Torch_Importer.net_inception_block");
-            //this.blackList.Add("Torch_Importer.net_lp_pooling");
-            //this.blackList.Add("Torch_Importer.net_logsoftmax");
-            //this.blackList.Add("Torch_Importer.net_softmax");
-            this.blackList.Add("Test_TensorFlow");
+    
  
 
             //--> Check if there is a valid installation of OpenCppCoverage
@@ -964,10 +952,7 @@ namespace Aletheia.HitSpectra
                                 //If there is no nextTest to execute, stop execution
                                 if (nextUnitTestIdent == null)
                                     break;
-                                if (blackList.FindIndex(o => string.Equals(nextUnitTestIdent, o, StringComparison.OrdinalIgnoreCase)) > -1)
-                                {
-                                    continue;
-                                }
+                                
                                 
 
                                 //Execute unit-test
