@@ -1,0 +1,6 @@
+<map id="Aletheia.Clustering.FaultLocalization.SimilarityMetrics.IRankingStrategy" name="Aletheia.Clustering.FaultLocalization.SimilarityMetrics.IRankingStrategy">
+<area shape="rect" id="node2" href="$classAletheia_1_1Clustering_1_1FaultLocalization_1_1SimilarityMetrics_1_1Dstar.html" title="Aletheia.Clustering.Fault\lLocalization.SimilarityMetrics.Dstar" alt="" coords="251,5,479,46"/>
+<area shape="rect" id="node3" href="$classAletheia_1_1Clustering_1_1FaultLocalization_1_1SimilarityMetrics_1_1Jaccard.html" title="Aletheia.Clustering.Fault\lLocalization.SimilarityMetrics.\lJaccard" alt="" coords="267,71,463,127"/>
+<area shape="rect" id="node4" href="$classAletheia_1_1Clustering_1_1FaultLocalization_1_1SimilarityMetrics_1_1Ochiai.html" title="Aletheia.Clustering.Fault\lLocalization.SimilarityMetrics.\lOchiai" alt="" coords="267,151,463,207"/>
+<area shape="rect" id="node5" href="$classAletheia_1_1Clustering_1_1FaultLocalization_1_1SimilarityMetrics_1_1Tarantula.html" title="Aletheia.Clustering.Fault\lLocalization.SimilarityMetrics.\lTarantula" alt="" coords="267,231,463,287"/>
+</map>

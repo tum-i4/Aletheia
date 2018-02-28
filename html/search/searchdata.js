@@ -5,7 +5,8 @@ var indexSectionsWithContent =
   2: "a",
   3: "abceghimpstw",
   4: "r",
-  5: "acfilnrt"
+  5: "acfilnrt",
+  6: "a"
 };
 
 var indexSectionNames =
@@ -15,7 +16,8 @@ var indexSectionNames =
   2: "namespaces",
   3: "functions",
   4: "enums",
-  5: "properties"
+  5: "properties",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -25,6 +27,7 @@ var indexSectionLabels =
   2: "Namespaces",
   3: "Functions",
   4: "Enumerations",
-  5: "Properties"
+  5: "Properties",
+  6: "Pages"
 };
 

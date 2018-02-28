@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tarantula',['Tarantula',['../class_aletheia_1_1_clustering_1_1_fault_localization_1_1_similarity_metrics_1_1_tarantula.html',1,'Aletheia::Clustering::FaultLocalization::SimilarityMetrics']]],
-  ['testcasecontext',['TestcaseContext',['../class_aletheia_1_1_hit_spectra_1_1_testcase_context.html',1,'Aletheia::HitSpectra']]],
-  ['tools',['Tools',['../class_aletheia_1_1_toolbox_1_1_tools.html',1,'Aletheia::Toolbox']]]
+  ['tarantula',['Tarantula',['../classAletheia_1_1Clustering_1_1FaultLocalization_1_1SimilarityMetrics_1_1Tarantula.html',1,'Aletheia::Clustering::FaultLocalization::SimilarityMetrics']]],
+  ['testcasecontext',['TestcaseContext',['../classAletheia_1_1HitSpectra_1_1TestcaseContext.html',1,'Aletheia::HitSpectra']]],
+  ['tools',['Tools',['../classAletheia_1_1Toolbox_1_1Tools.html',1,'Aletheia::Toolbox']]]
 ];

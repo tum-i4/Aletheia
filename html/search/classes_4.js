@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['faultlocalizer',['FaultLocalizer',['../class_aletheia_1_1_clustering_1_1_fault_localization_1_1_fault_localizer.html',1,'Aletheia::Clustering::FaultLocalization']]]
+  ['faultlocalizer',['FaultLocalizer',['../classAletheia_1_1Clustering_1_1FaultLocalization_1_1FaultLocalizer.html',1,'Aletheia::Clustering::FaultLocalization']]]
 ];
