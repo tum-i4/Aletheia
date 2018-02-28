@@ -1,0 +1,11 @@
+digraph "Aletheia.Toolbox.Tools.mergeTwoTwoDimensionalIntArrays"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node26 [label="Aletheia.Toolbox.Tools.merge\lTwoTwoDimensionalIntArrays",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node26 -> Node27 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node27 [label="Aletheia.Toolbox.Tools.transform\lTwoDimensionalArrayToJaggedArray",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_aletheia_1_1_toolbox_1_1_tools.html#a86cabd31aba238828d422f2d0e98e4e5",tooltip="convert 2D array to JaggedArray "];
+  Node26 -> Node28 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node28 [label="Aletheia.Toolbox.Tools.transform\lJaggedArrayToTwoDimensionalArray",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_aletheia_1_1_toolbox_1_1_tools.html#a0aa4cb21eaa8ba7618f92efe4cfed8b3",tooltip="convert jagged array to 2D array "];
+}

@@ -13,7 +13,12 @@ using MwMatlabClustering;
 using Aletheia.Clustering.FaultLocalization;
 
 namespace Aletheia
-{
+{   
+
+
+    /// <summary>
+    /// The main program class. 
+    /// </summary>
     public class Program
     {
         private static string workingDirectory;
@@ -32,6 +37,11 @@ namespace Aletheia
 
         private static DataTable hilHitSpectraMatrix = null;
         private static string rankingMetric="Jaccard";
+        /// <summary>
+        /// the main function.
+        /// Aletheia starts here. It directs the program what to do based on command line input
+        /// </summary>
+        /// <param name="args">It is an array of argument</param>
         public static void Main(string[] args)
         {
             // Reading command line arguments
@@ -233,7 +243,14 @@ namespace Aletheia
             }
 
         }
-
+        /// <summary>
+        /// doClustering is a static method in the Program class. It is invoked when clustering is required by command line parameter.
+        /// It creates a Clustering object defined by Clustering.cs and if there is any failing test cases,
+        /// it calls linkage(), doClustering(), findClusterCenter(), and exportClusteringResult() method on the\
+        /// Clustering object
+        /// </summary>
+        /// <param name="dataTable">A DataTable object containig conerning HitSpectra</param>
+        /// <param name="path">A string indicating where the clustering will be saved</param>
         private static void doClustering(DataTable dataTable, string path)
         {
             if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
@@ -247,6 +264,11 @@ namespace Aletheia
                 clusterer.exportClusteringResults();
             }
         }
+        /// <summary>
+        /// It creates directory using system interface
+        /// </summary>
+        /// <param name="outDir">The diretory to be created</param>
+        /// <returns></returns>
 
         private static string createWorkingDirectory(string outDir)
         {
@@ -263,7 +285,11 @@ namespace Aletheia
 
             return workingDir;
         }
-
+        /// <summary>
+        /// Creates output directory using current timestamp
+        /// </summary>
+        /// <param name="outDir">The base output directory</param>
+        /// <returns></returns>
         private static string createOutputDirectory(string outDir)
         {
             try
@@ -283,7 +309,9 @@ namespace Aletheia
                 return null;
             }
         }
-
+        /// <summary>
+        /// Prints command line parameters on the console
+        /// </summary>
         private static void printCommandLineParameters()
         {
             string output = "**********************************\n"
@@ -298,6 +326,11 @@ namespace Aletheia
 
             CommandLinePrinter.printToCommandLine(output);
         }
+        /// <summary>
+        /// Extracts fault localization strategy from command line parameter ranking metric
+        /// </summary>
+        /// <param name="cmdStrategy"></param>
+        /// <returns></returns>
         private static EStrategy getFaultLocalizationStrategy(string cmdStrategy)
         {
             foreach (EStrategy es in Enum.GetValues(typeof(EStrategy)))

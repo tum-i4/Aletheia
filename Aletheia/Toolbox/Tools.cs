@@ -8,13 +8,23 @@ using System.Threading.Tasks;
 
 namespace Aletheia.Toolbox
 {
+    /// <summary>
+    /// enumeration of the test case execution result
+    /// </summary>
     public enum Result
     {
         Passed, Failed
     }
-
+    /// <summary>
+    /// A class to hold some utility function
+    /// </summary>
     public class Tools
     {
+        /// <summary>
+        /// converts the data table to jagged array
+        /// </summary>
+        /// <param name="dataTable">HitSpectra data table</param>
+        /// <returns></returns>
         public static double[][] buildJaggedDoubleArray(DataTable dataTable)
         {
             int dimCol = dataTable.Columns.Count - 1;
@@ -37,7 +47,12 @@ namespace Aletheia.Toolbox
 
             return table;
         }
-
+        /// <summary>
+        /// separates the test case with the given result and put them to jagged array
+        /// </summary>
+        /// <param name="result">Result for separation</param>
+        /// <param name="testcaseList">testcase spectra</param>
+        /// <returns></returns>
         public static double[][] seperateTestcasesByResultJaggedDoubleArray(Result result, double[][] testcaseList)
         {
             int res;
@@ -76,7 +91,11 @@ namespace Aletheia.Toolbox
 
             return table;
         }
-
+        /// <summary>
+        /// converts MatLab MW array to C# compatible jagged array
+        /// </summary>
+        /// <param name="mwArray">Matlab MW array</param>
+        /// <returns></returns>
         public static double[][] buildJaggedDoubleArrayFromMWArray(MWArray mwArray)
         {
             Array tmpArray = mwArray.ToArray();
@@ -103,7 +122,11 @@ namespace Aletheia.Toolbox
 
             return doubleArray;
         }
-
+        /// <summary>
+        /// creates 2D array from hitSpectra data table
+        /// </summary>
+        /// <param name="dataTable">HitSpectra Data table</param>
+        /// <returns></returns>
         public static double[,] buildTwoDimensionalDoubleArray(DataTable dataTable)
         {
             int dimCol = dataTable.Columns.Count - 1;
@@ -123,7 +146,12 @@ namespace Aletheia.Toolbox
 
             return table;
         }
-
+        /// <summary>
+        /// Separates testcases by the given result and create 2D array from the separated test case spectra
+        /// </summary>
+        /// <param name="result">Result for separation</param>
+        /// <param name="testcaseList">Test Case Spectra</param>
+        /// <returns></returns>
         public static double[,] seperateTestcasesByResultTwoDimensionalDoubleArray(Result result, double[,] testcaseList)
         {
             int res;
@@ -159,7 +187,11 @@ namespace Aletheia.Toolbox
 
             return table;
         }
-
+        /// <summary>
+        /// creates 2D array from Matlab MW array
+        /// </summary>
+        /// <param name="mwArray">Matlab MW array</param>
+        /// <returns></returns>
         public static double[,] buildTwoDimensionalDoubleArrayFromMWArray(MWArray mwArray)
         {
             Array tmpArray = mwArray.ToArray();
@@ -185,7 +217,11 @@ namespace Aletheia.Toolbox
 
             return doubleArray;
         }
-
+        /// <summary>
+        /// creates 2D integer array from hit spectra
+        /// </summary>
+        /// <param name="dataTable">Hit Spectra Data Table</param>
+        /// <returns></returns>
         public static int[,] buildTwoDimensionalIntArray(DataTable dataTable)
         {
             int dimCol = dataTable.Columns.Count - 1;
@@ -205,7 +241,13 @@ namespace Aletheia.Toolbox
 
             return table;
         }
-
+        /// <summary>
+        /// Separates test case spectra by given result and then create 2D integer array with the
+        /// separated test case spectra
+        /// </summary>
+        /// <param name="result">Result for separation</param>
+        /// <param name="testcaseList">Test Case Spectra</param>
+        /// <returns></returns>
         public static int[,] seperateTestcasesByResultTwoDimensionalIntArray(Result result, int[,] testcaseList)
         {
             int res;
@@ -241,7 +283,12 @@ namespace Aletheia.Toolbox
 
             return table;
         }
-
+        /// <summary>
+        /// Merge 2 2D array into one
+        /// </summary>
+        /// <param name="array1">First Integer array</param>
+        /// <param name="array2">Second Integer array</param>
+        /// <returns></returns>
         public static int[,] mergeTwoTwoDimensionalIntArrays(int[,] array1, int[,] array2)
         {
             List<int[]> tmpList = new List<int[]>();
@@ -251,7 +298,11 @@ namespace Aletheia.Toolbox
 
             return mergedList;
         }
-
+        /// <summary>
+        /// create a dictionary wthe the testcase name and id
+        /// </summary>
+        /// <param name="dataTable">HitSpectra Data Table</param>
+        /// <returns></returns>
         public static Dictionary<int, string> buildIdList(DataTable dataTable)
         {
             Dictionary<int, string> idList = new Dictionary<int, string>();
@@ -268,7 +319,12 @@ namespace Aletheia.Toolbox
 
             return idList;
         }
-
+        /// <summary>
+        /// create a dictionary wthe the testcase name and id separated by given result
+        /// </summary>
+        /// <param name="result">Result for Separation</param>
+        /// <param name="dataTable">Hit Spectra Data table</param>
+        /// <returns></returns>
         public static Dictionary<int, string> buildIdListSeperated(Result result, DataTable dataTable)
         {
             int res;
@@ -293,7 +349,11 @@ namespace Aletheia.Toolbox
 
             return idList;
         }
-
+        /// <summary>
+        /// convert Matlab MW array to one dimentional integer array
+        /// </summary>
+        /// <param name="mwArray">Matlab MW array</param>
+        /// <returns></returns>
         public static int[] buildOneDimensionalIntArray(MWArray mwArray)
         {
             Array tmpArray = mwArray.ToArray();
@@ -315,7 +375,11 @@ namespace Aletheia.Toolbox
 
             return intArray;
         }
-
+        /// <summary>
+        /// converts double array to integer array
+        /// </summary>
+        /// <param name="doubleArray">double array to be converted</param>
+        /// <returns></returns>
         public static int[,] convertDoubleArrayToIntArray(double[,] doubleArray)
         {
             int dim1 = doubleArray.GetLength(0);
@@ -333,7 +397,11 @@ namespace Aletheia.Toolbox
 
             return intArray;
         }
-
+        /// <summary>
+        /// creates function names from Hit Spectra Data Table
+        /// </summary>
+        /// <param name="dataTable">Hit Spectra Data Table</param>
+        /// <returns>array of string containing function names</returns>
         public static string[] generateFunctionNamesArray(DataTable dataTable)
         {
             int dim = dataTable.Columns.Count - 2;  // leave out testcase-name and result column
@@ -346,7 +414,12 @@ namespace Aletheia.Toolbox
 
             return functionNames;
         }
-
+        /// <summary>
+        /// separates the test cases using cluster id
+        /// </summary>
+        /// <param name="cluster">list of cluster id</param>
+        /// <param name="testcaseList">List of test cases</param>
+        /// <returns></returns>
         public static Dictionary<int, List<int[]>> allocateTestcasesIntoClusters(int[] cluster, int[,] testcaseList)
         {
             Dictionary<int, List<int[]>> clusters = new Dictionary<int, List<int[]>>();
@@ -367,6 +440,12 @@ namespace Aletheia.Toolbox
 
             return clusters;
         }
+        /// <summary>
+        /// convert integer array to double array
+        /// </summary>
+        /// <param name="a">Integer array</param>
+        /// <param name="len">Lenght of the array</param>
+        /// <returns></returns>
         public static double[] intArrayToDoubleArray(int []a, int len)
         {
             double []d = new double[len];
@@ -378,6 +457,11 @@ namespace Aletheia.Toolbox
             return d;
         }
 
+        /// <summary>
+        /// convert 2D array to JaggedArray
+        /// </summary>
+        /// <param name="twoDArray">2D array to be converted</param>
+        /// <returns></returns>
         public static int[][] transformTwoDimensionalArrayToJaggedArray(int[,] twoDArray)
         {
             int[][] jaggedArray = new int[twoDArray.GetLength(0)][];
@@ -394,7 +478,11 @@ namespace Aletheia.Toolbox
 
             return jaggedArray;
         }
-
+        /// <summary>
+        /// convert jagged array to 2D array
+        /// </summary>
+        /// <param name="jaggedArray">Jagged array to be converted</param>
+        /// <returns></returns>
         public static int[,] transformJaggedArrayToTwoDimensionalArray(int[][] jaggedArray)
         {
             int[,] twoDArray = new int[jaggedArray.GetLength(0), jaggedArray[0].GetLength(0)];
@@ -410,7 +498,11 @@ namespace Aletheia.Toolbox
 
             return twoDArray;
         }
-
+        /// <summary>
+        /// convert the hitSpectra data table to binary table
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <returns></returns>
         public static DataTable buildBinaryDataTable(DataTable dataTable)
         {
             DataTable dt = new DataTable();

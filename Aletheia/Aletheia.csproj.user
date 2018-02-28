@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <StartArguments>do=faultLocalization input_path=D:\Photo_bug_2\spectra\statement_hit_spectra.csv separator=, ranking_metric=Dstar4</StartArguments>
+    <StartArguments>do=GenerateHitSpectra project_path=C:\Users\raisu\Desktop\opencv-3.4.0\build\modules\dnn\opencv_test_dnn.vcxproj source_directory=C:\Users\raisu\Desktop\opencv-3.4.0\opencv-3.4.0\modules\dnn degreeofparallelism=12 gtest_path=C:\Users\raisu\Desktop\opencv-3.4.0\build\bin\Release\opencv_test_dnn.exe</StartArguments>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
   <PropertyGroup>
@@ -15,7 +15,7 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <StartArguments>do=Cluster input_path=C:\Users\raisu\Downloads\GENERATEHITSPECTRA\TestCoverage\functions_call_hit_spectra.csv separator=,</StartArguments>
+    <StartArguments>do=GenerateHitSpectra project_path=C:\Users\raisu\Desktop\opencv-3.4.0\build\modules\dnn\opencv_test_dnn.vcxproj source_directory=C:\Users\raisu\Desktop\opencv-3.4.0\opencv-3.4.0\modules\dnn degreeofparallelism=12 gtest_path=C:\Users\raisu\Desktop\opencv-3.4.0\build\bin\Release\opencv_test_dnn.exe</StartArguments>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
 </Project>

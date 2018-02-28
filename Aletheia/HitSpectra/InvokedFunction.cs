@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace Aletheia.HitSpectra
 {
+    /// <summary>
+    /// this class holds necessary member variable and methods for Invoked funcions
+    /// </summary>
     public class InvokedFunction
     {
         private string name;
         private string sourceFileTheFunctionBelongsTo;
         private List<string> parameters;
-
+        /// <summary>
+        /// constructor sets some member variable
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="sourceFile"></param>
+        /// <param name="parameters"></param>
         public InvokedFunction(string name, string sourceFile, List<string> parameters)
         {
             this.name = name;

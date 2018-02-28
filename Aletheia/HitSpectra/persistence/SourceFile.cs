@@ -87,46 +87,54 @@ namespace Aletheia.HitSpectra.persistence
 
                 int lineIndex = 1;
                 string lineOfCode = null;
-                while ((lineOfCode = streamReader.ReadLine()) != null)
-                {
-                    result = lineOfCode;
-                    //Handling of normal, inline-comments (e.g. //)
-                    if (!enteredComment)
-                    {
-                        if (result.Contains("//"))
-                            result = lineOfCode.Remove(lineOfCode.IndexOf("//"), lineOfCode.Length - lineOfCode.IndexOf("//"));
-                    }
 
-                    //Handlin of mulit-line comments (e.g. /*  */ )
-                    if (!enteredComment)
+                try
+                {
+                    while ((lineOfCode = streamReader.ReadLine()) != null)
                     {
-                        while (result.Contains("/*"))
+                        result = lineOfCode;
+                        //Handling of normal, inline-comments (e.g. //)
+                        if (!enteredComment)
                         {
-                            if (result.Contains("*/"))
-                            {
-                                result = result.Remove(result.IndexOf("/*"), result.IndexOf("*/") - result.IndexOf("/*") + 2);
-                            }
-                            else
-                            {
-                                result = result.Remove(result.IndexOf("/*"), result.Length - result.IndexOf("/*"));
-                                enteredComment = true;
-                            }
+                            if (result.Contains("//"))
+                                result = lineOfCode.Remove(lineOfCode.IndexOf("//"), lineOfCode.Length - lineOfCode.IndexOf("//"));
                         }
-                    }
-                    else
-                    {
-                        if (lineOfCode.Contains("*/"))
+
+                        //Handlin of mulit-line comments (e.g. /*  */ )
+                        if (!enteredComment)
                         {
-                            result = lineOfCode.Remove(0, lineOfCode.IndexOf("*/") + 2);
-                            enteredComment = false;
+                            while (result.Contains("/*"))
+                            {
+                                if (result.Contains("*/"))
+                                {
+                                    result = result.Remove(result.IndexOf("/*"), result.IndexOf("*/") - result.IndexOf("/*") + 2);
+                                }
+                                else
+                                {
+                                    result = result.Remove(result.IndexOf("/*"), result.Length - result.IndexOf("/*"));
+                                    enteredComment = true;
+                                }
+                            }
                         }
                         else
                         {
-                            result = string.Empty;
+                            if (lineOfCode.Contains("*/"))
+                            {
+                                result = lineOfCode.Remove(0, lineOfCode.IndexOf("*/") + 2);
+                                enteredComment = false;
+                            }
+                            else
+                            {
+                                result = string.Empty;
+                            }
                         }
-                    }
 
-                    this.linesOfSourceFile.Add(lineIndex++, result);
+                        this.linesOfSourceFile.Add(lineIndex++, result);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
         }

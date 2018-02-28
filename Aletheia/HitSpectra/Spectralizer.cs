@@ -16,20 +16,34 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Aletheia.HitSpectra
-{
+{   
+    /// <summary>
+    /// This class holds necessary variable and methods for creating hit spectra data
+    /// </summary>
     public class Spectralizer
     {
         private Dictionary<string, CommandLineArgument> commandLineArguments;
-
-        //Application-arguments
+        //! An Boolean.
+        /*!  if DEBUG is true, it will print more log. */
         private bool DEBUG = false;
-        private Project baseProject = null;
-        private string projectPath = null;
-        private string srcDir = null;
-        private string outDir = null;
-        private string projName = "opencv";
-        private string gtestPath = null;
-        private string projectMode = "default";
+        //! A Project type object.
+        /*!  it holds the object extracted from .vcxproj file. */
+        private Project baseProject = null; // 
+        private string projectPath = null; // path to project directory
+        private string srcDir = null; // path to cource code
+        private string outDir = null; // where to put the output e.g. spectra, clustering and fault localization
+        private string projName = "opencv"; // project name, default is opencv, it can be changed from command line
+        private string gtestPath = null; // path to gtest.exe
+        /// <summary>
+        /// Aletheia started with propritary closed source BMW project. After that we moved to Google
+        /// Chromium project, as the OpenCppCoverage tool was unable to produce coverage for Chromium project we have to move
+        /// to OpenCV project. I worked around 4 months for Google Chromium project and created a some functions. I haven't 
+        /// deleted the functions hoping that some other developer might find some coverage tool to work with Google Chromium project. 
+        /// For standard visual studio project , the projectMode=default, for chromium project projectMode=chromium, 
+        /// OpenCV is almost standard visual studio project except all the binaries are generated in the same folder instead
+        /// in their own project folder. 
+        /// </summary>
+        private string projectMode = "default"; 
         private static string ninjaName = "";
         private static string testType = "";
         private char separator = ';';
@@ -61,7 +75,12 @@ namespace Aletheia.HitSpectra
         private DataTable countingFunctionInvokationsHitSpectraMatrix;
         private DataTable lineCoverageHitSpectraMatrix;
         private List<string> blackList;
-
+        /// <summary>
+        /// constructor initializes some member variables. It extracts data from the command line parameter and stores them 
+        /// as per necessity
+        /// </summary>
+        /// <param name="commandLineArguments">Command Line argument passed from the main program</param>
+        /// <param name="parentPath">Working directory</param>
         public Spectralizer(Dictionary<string, CommandLineArgument> commandLineArguments, string parentPath)
         {
             this.commandLineArguments = commandLineArguments;
@@ -104,40 +123,47 @@ namespace Aletheia.HitSpectra
             }
 
             CommandLinePrinter.printToCommandLine(toPrint);
-
-            //thing to do
-            //extract the unit test name from the gtest executable
-            //search the unit test ninja file 
-            //parse the ninja file to get the test name and their object location
-            //parse the object file to get the test cases
-            //mimic a visual studio project using the data available
         }
-
+        /// <summary>
+        /// get method for functionHitSpectraMatrix
+        /// </summary>
         public DataTable FunctionHitSpectraMatrix
         {
             get { return functionHitSpectraMatrix; }
         }
-
+        /// <summary>
+        /// get method for invokedFunctionsHitSpectraMatrix
+        /// </summary>
         public DataTable InvokedFunctionsHitSpectraMatrix
         {
             get { return invokedFunctionsHitSpectraMatrix; }
         }
-
+        /// <summary>
+        /// get method for invokedFunctionsWithParametersHitSpectraMatrix
+        /// </summary>
         public DataTable InvokedFunctionsWithParametersHitSpectraMatrix
         {
             get { return invokedFunctionsWithParametersHitSpectraMatrix; }
         }
-
+        /// <summary>
+        /// get method for countingFunctionInvokationsHitSpectraMatrix
+        /// </summary>
         public DataTable CountingFunctionInvokationsHitSpectraMatrix
         {
             get { return countingFunctionInvokationsHitSpectraMatrix; }
         }
-
+        /// <summary>
+        /// lineCoverageHitSpectraMatrix
+        /// </summary>
         public DataTable LineCoverageHitSpectraMatrix
         {
             get { return lineCoverageHitSpectraMatrix; }
         }
-
+        /// <summary>
+        /// this method calls methods to execute all the test cases, analyzes the openCppCoverage files, 
+        /// parse all the test case touched functions,build hit spectra data table, and finally deletes 
+        /// the temporary coverage file if commanded so (default is to delete temporary coverage files)
+        /// </summary>
         public void executeTestSuite()
         {
             //repository = new Dictionary<string, SourceFile>();
@@ -250,7 +276,9 @@ namespace Aletheia.HitSpectra
                 ProjectConfig.DeleteAnalData(workingDir);
             }
         }
-
+        /// <summary>
+        /// exports hitSpectra as csv file
+        /// </summary>
         public void exportHitSpectraMatrices()
         {
             string pathFunctionHitSpectraMatrix = workingDir + "\\function_spectra.csv";
@@ -319,6 +347,9 @@ namespace Aletheia.HitSpectra
         }
 
         #region Build DataTable structures
+        /// <summary>
+        /// creates hit spectra for function level coverage
+        /// </summary>
         private void buildFunctionHitSpectraDataTable()
         {
             if (functionHitSpectraMatrix == null)
@@ -364,7 +395,9 @@ namespace Aletheia.HitSpectra
                     Console.WriteLine("Columns for data table created(FC)\n");
             }
         }
-
+        /// <summary>
+        /// build hit spectra for invoked function level coverage
+        /// </summary>
         private void buildInvokedFunctionHitSpectraDataTable()
         {
             if (invokedFunctionsHitSpectraMatrix == null) { invokedFunctionsHitSpectraMatrix = new DataTable(); }
@@ -392,7 +425,10 @@ namespace Aletheia.HitSpectra
                     Console.WriteLine("Result column created (IFC)\n");
             }
         }
-
+        /// <summary>
+        /// add colum to invokedFunctionHitSpectraDataTable
+        /// </summary>
+        /// <param name="columnName">Column name to be added</param>
         private void addColumnToInvokedFunctionHitSpectraDataTable(string columnName)
         {
             if (!invokedFunctionsHitSpectraMatrix.Columns.Contains(columnName))
@@ -404,7 +440,9 @@ namespace Aletheia.HitSpectra
                 invokedFunctionsHitSpectraMatrix.Columns.Add(fctColumn);
             }
         }
-
+        /// <summary>
+        /// build InvokedFunctionWithParametersHitSpectraDataTable
+        /// </summary>
         private void buildInvokedFunctionWithParametersHitSpectraDataTable()
         {
             if (invokedFunctionsWithParametersHitSpectraMatrix == null) { invokedFunctionsWithParametersHitSpectraMatrix = new DataTable(); }
@@ -431,7 +469,10 @@ namespace Aletheia.HitSpectra
                     Console.WriteLine("Result column created (IFCP)\n");
             }
         }
-
+        /// <summary>
+        /// add Column To InvokedFunctionWithParametersHitSpectraDatatable
+        /// </summary>
+        /// <param name="columnName">the column to be added</param>
         private void addColumnToInvokedFunctionWithParametersHitSpectraDatatable(string columnName)
         {
             if (!invokedFunctionsWithParametersHitSpectraMatrix.Columns.Contains(columnName))
@@ -443,7 +484,9 @@ namespace Aletheia.HitSpectra
                 invokedFunctionsWithParametersHitSpectraMatrix.Columns.Add(fctColumn);
             }
         }
-
+        /// <summary>
+        /// build CountingFunctionInvokationsHitSpectraDataTable
+        /// </summary>
         private void buildCountingFunctionInvokationsHitSpectraDataTable()
         {
             if (countingFunctionInvokationsHitSpectraMatrix == null) countingFunctionInvokationsHitSpectraMatrix = new DataTable();
@@ -487,7 +530,9 @@ namespace Aletheia.HitSpectra
             if (DEBUG)
                 Console.WriteLine("Function column created (CF)\n");
         }
-
+        /// <summary>
+        /// build LineCoverageHitSpectraDataTable
+        /// </summary>
         private void buildLineCoverageHitSpectraDataTable()
         {
             if (lineCoverageHitSpectraMatrix == null) lineCoverageHitSpectraMatrix = new DataTable();
@@ -514,7 +559,10 @@ namespace Aletheia.HitSpectra
                     Console.WriteLine("Result column created (LC)\n");
             }
         }
-
+        /// <summary>
+        /// add Column To LineCoverageHitSpectraDataTable
+        /// </summary>
+        /// <param name="columnName">column  to be added</param>
         private void addColumnToLineCoverageHitSpectraDataTable(string columnName)
         {
             if (!lineCoverageHitSpectraMatrix.Columns.Contains(columnName))
@@ -529,6 +577,9 @@ namespace Aletheia.HitSpectra
         #endregion
 
         #region Generic Analyzing stuff
+        /// <summary>
+        /// analyze openCppcoverage files to extract hitspectra
+        /// </summary>
         private void analyzeOpenCppCoverageFiles()
         {
             Console.WriteLine("Number of context: "+executedTestcases.Count());
@@ -626,6 +677,9 @@ namespace Aletheia.HitSpectra
 #endregion
 
 #region Build the Hit Spectra Matrices
+        /// <summary>
+        /// creates function hitSpectra matrix from executed test cases
+        /// </summary>
         private void buildFunctionHitSpectraMatrix()
         {
             foreach (TestcaseContext testcaseContext in executedTestcases)
@@ -646,7 +700,9 @@ namespace Aletheia.HitSpectra
                 functionHitSpectraMatrix.Rows.Add(datarow);
             }
         }
-
+        /// <summary>
+        /// creates invoked function hitSpectra matrix from executed test cases
+        /// </summary>
         private void buildInvokedFunctionsHitSpectraMatrix()
         {
             foreach (TestcaseContext testcaseContext in executedTestcases)
@@ -703,7 +759,9 @@ namespace Aletheia.HitSpectra
                 invokedFunctionsHitSpectraMatrix.Rows.Add(row);
             }
         }
-
+        /// <summary>
+        /// creates invoked function with param hitSpectra matrix from executed test cases
+        /// </summary>
         private void buildInvokedFunctionsWithParametersHitSpectraMatrix()
         {
             foreach (TestcaseContext testcaseContext in executedTestcases)
@@ -760,7 +818,9 @@ namespace Aletheia.HitSpectra
                 invokedFunctionsWithParametersHitSpectraMatrix.Rows.Add(row);
             }
         }
-
+        /// <summary>
+        /// creates counting function invokation hitSpectra matrix from executed test cases
+        /// </summary>
         private void buildCountingFunctionInvokationsHitSpectraMatrix()
         {
             foreach (TestcaseContext testcaseContext in executedTestcases)
@@ -811,7 +871,9 @@ namespace Aletheia.HitSpectra
                 countingFunctionInvokationsHitSpectraMatrix.Rows.Add(datarow);
             }
         }
-
+        /// <summary>
+        /// creates line coverage hitSpectra matrix from executed test cases
+        /// </summary>
         private void buildLineCoverageHitSpectraMatrix()
         {
             foreach (TestcaseContext testcaseContext in executedTestcases)
@@ -844,11 +906,19 @@ namespace Aletheia.HitSpectra
             }
         }
 #endregion
+        /// <summary>
+        /// limit the number of test cases
+        /// this function was written for the debugging purpose, it has no use in real application
+        /// </summary>
         private void trimTestCases()
         {
             baseProject.limitTestCase();
         }
 #region Remove useless columns in Hit Spectra Matrices
+        /// <summary>
+        /// removed blank or unused columsn
+        /// </summary>
+        /// <param name="dataTable">Hit Spectra Data table</param>
         private void removeUselessColumns(DataTable dataTable)
         {
             List<DataColumn> columnsToRemove = new List<DataColumn>();
@@ -883,7 +953,10 @@ namespace Aletheia.HitSpectra
                 dataTable.Columns.Remove(column);
             }
         }
-
+        /// <summary>
+        /// remove unnecessary TEST_F columns
+        /// </summary>
+        /// <param name="dataTable">Hit Spectra Data Table</param>
         private void removeTEST_FColumns(DataTable dataTable)
         {
             List<DataColumn> columnsToRemove = new List<DataColumn>();
@@ -903,7 +976,11 @@ namespace Aletheia.HitSpectra
             }
         }
 #endregion
-
+        /// <summary>
+        /// It extracts coverage name from the gtest exe
+        /// </summary>
+        /// <param name="path">path to exe</param>
+        /// <returns></returns>
         private string getCovname(string path)
         {
             string []tmp = path.Split('\\');
@@ -912,6 +989,9 @@ namespace Aletheia.HitSpectra
                 return exes[0];
         }
 #region Executing testcases
+        /// <summary>
+        /// It executes test cases in a multithreaded environment, the default number of thread is 12
+        /// </summary>
         private void executeTestcases()
         {
             executedTestcases = new List<TestcaseContext>();
@@ -1025,9 +1105,12 @@ namespace Aletheia.HitSpectra
 
             }
 
-
-
         }
+        /// <summary>
+        /// Executes test case with hard coded parameters.
+        /// This method was written to debug some error. It has no use in real application
+        /// </summary>
+        /// <param name="gTestPath">path to gtest exe</param>
         private void executeGtestWithoutTestCase(string gTestPath)
         {
             //#1 Prepare process to run OpenCppCoverage
@@ -1092,6 +1175,11 @@ namespace Aletheia.HitSpectra
            */
 
         }
+        /// <summary>
+        /// extract source folder from gtest path
+        /// </summary>
+        /// <param name="gTestPath">path to gtest exe</param>
+        /// <returns></returns>
         private string getSourcesOfGtest(string gTestPath)
         {
             string[] path = gTestPath.Split('\\');
@@ -1105,6 +1193,11 @@ namespace Aletheia.HitSpectra
             return sources;
 
         }
+        /// <summary>
+        /// get module names from gtest path
+        /// </summary>
+        /// <param name="gTestPath">path to gtest exe</param>
+        /// <returns></returns>
         private string getModulesOfGtest(string gTestPath)
         {
             string[] path = gTestPath.Split('\\');
@@ -1117,6 +1210,15 @@ namespace Aletheia.HitSpectra
             //string sources = gTestPath.Substring(0, ind);
             return proj;
         }
+        /// <summary>
+        /// execute a single unit test and store coverage report
+        /// </summary>
+        /// <param name="projName">Project Name</param>
+        /// <param name="testName">Test Case Name</param>
+        /// <param name="workingDir">Working Directory</param>
+        /// <param name="gTestPath">Path to gtest exe</param>
+        /// <param name="timeout">timeout in secons</param>
+        /// <returns></returns>
         private async Task<RunResult> executeUnitTest(string projName, string testName, string workingDir, string gTestPath, int timeout)
         {
             //#1 Prepare process to run OpenCppCoverage
@@ -1270,6 +1372,15 @@ namespace Aletheia.HitSpectra
             }
             return testResult;
         }
+        /// <summary>
+        /// execute a single unit test of default visual studio project
+        /// </summary>
+        /// <param name="projName">Project name</param>
+        /// <param name="testName">Test Case name</param>
+        /// <param name="workingDir">Working direcotry</param>
+        /// <param name="gTestPath">gtest path of the vs project</param>
+        /// <param name="timeout">timeout in secons</param>
+        /// <returns></returns>
         private async Task<RunResult> executeUnitTestVS(string projName, string testName, string workingDir, string gTestPath, int timeout)
         {
             //#1 Prepare process to run OpenCppCoverage
@@ -1430,6 +1541,10 @@ namespace Aletheia.HitSpectra
 #endregion
 
 #region Reading and Evaluating Command Line Arguments
+        /// <summary>
+        /// reads command line input parameters and stores them in member variable
+        /// </summary>
+        /// <returns>returns True if everythign goes well</returns>
         private bool readCommandLineInputParameters()
         {
             foreach (CommandLineArgument cmdArgument in commandLineArguments.Values)
@@ -1509,22 +1624,13 @@ namespace Aletheia.HitSpectra
 
             return true;
         }
-        /**
-         * Journal 001:
-         * Spectralizer is a semi-well defined tool, it was initially designed for VS projects. 
-         * But when I was hired as HiWi, I was given the task to make it compatible with Google Chromium Project
-         * Google Chromium is a huge project with a lot of subprojects. It is opensource, as a result different contributor 
-         * contributed to it differently with different coding style, naming style etc. But they all used the GN and Ninja compiler
-         * for compiling the entire project
-         * */
-        /**
-         * Journal 002:
-         * Since the code is not well documented, I decided to convert the GN project or Ninja project to VS project
-         * which will save a lot of time otherwise I might have to re-code entire spectralizer for making it work with the Mighty chromium
-         * Project. mimicVSProject is such a function which takes the gTest executable path, extracts the unittests from it and
-         * create VS project like object to feed to Spectralizer.
-         * 
-         * */
+        /// <summary>
+        /// The original program was written for standard visual studio project. 
+        /// This function converts the Google Chroimum project to standard visual studio like project so 
+        /// our program can work on Google Chromium project
+        /// </summary>
+        /// <param name="gtestPath">patht to gtest exe</param>
+        /// <returns></returns>
         private Project mimicVSProject(string gtestPath)
         {
             Project mimic = new Project();
@@ -1560,12 +1666,22 @@ namespace Aletheia.HitSpectra
 
             return mimic;
         }
+        /// <summary>
+        /// This function was written for integration test, but was not completed for some complexity
+        /// </summary>
+        /// <param name="gtestPath">Path to gtest exe</param>
+        /// <returns></returns>
         private Project mimicVSProjectForIntegration(string gtestPath)
         {
             Project mimic = new Project();
             return mimic;
         }
-
+        /// <summary>
+        /// extract test set from ninja file [Google Chromium project]
+        /// </summary>
+        /// <param name="ninjaFile">path to ninja file</param>
+        /// <param name="testHome">tes home directory</param>
+        /// <returns></returns>
         Dictionary<string, List<string>> getExtractedTestSetsFromSource(string ninjaFile, string testHome)
         {
             Dictionary<string, List<string>> extractedTC = new Dictionary<string, List<string>>();
@@ -1593,12 +1709,21 @@ namespace Aletheia.HitSpectra
             }
             return extractedTC;
         }
+        /// <summary>
+        /// extract source from gtest path [Google Chromium Project]
+        /// </summary>
+        /// <returns>sourc root directory</returns>
         private string getSrcFromGtestPath()
         {
             int index = gtestPath.IndexOf("src\\") + 4;
             string root = gtestPath.Substring(0, index);
             return root;
         }
+        /// <summary>
+        /// extract test file locations from ninja file [Google Chromium Project]
+        /// </summary>
+        /// <param name="path">path to ninja</param>
+        /// <returns></returns>
         private HashSet<string> getTestFileFromNinja(string path)
         {
             string[] lines = System.IO.File.ReadAllLines(path);
@@ -1646,13 +1771,13 @@ namespace Aletheia.HitSpectra
             }
             return filePath;
         }
-        /**
-         * Journal 003:
-         * getExtractedTestSets takes the ninja file and test home directory as input, 
-         * it collects the test objects generated by the Ninja compiler
-         * Then it reads each test object file to get the list of unittests 
-         * 
-         * */
+
+        /// <summary>
+        /// extract test set from ninja file [Google Chromium Project]
+        /// </summary>
+        /// <param name="ninjaFile">Path to Ninja file</param>
+        /// <param name="testHome">test directory</param>
+        /// <returns></returns>
         private Dictionary<string, List<string>> getExtractedTestSets(string ninjaFile, string testHome)
         {
             Dictionary<string, List<string>> extractedTC = new Dictionary<string, List<string>>();
@@ -1705,9 +1830,10 @@ namespace Aletheia.HitSpectra
         }
         /// <summary>
         /// getNinja function takes the directory to search and the ninja file to be found and it returns the locaiton of the ninja file
+        /// [Google Chromium Project]
         /// </summary>
-        /// <param name="dir"></param>
-        /// <param name="ninja"></param>
+        /// <param name="dir">working directory</param>
+        /// <param name="ninja">ninja name</param>
         /// <returns>location of the ninja file</returns>
         private string getNinja(string dir, string ninja)
         {
@@ -1718,7 +1844,11 @@ namespace Aletheia.HitSpectra
 
             return ninjaName;
         }
-
+        /// <summary>
+        /// search a file in directory [Google Chromium Project]
+        /// </summary>
+        /// <param name="sDir">working dir</param>
+        /// <param name="fileName">file name to be searched</param>
         void DirectorySearch(string sDir, string fileName)
         {
             try
@@ -1741,6 +1871,10 @@ namespace Aletheia.HitSpectra
                 Console.WriteLine(excpt.Message);
             }
         }
+        /// <summary>
+        /// validates input parameters
+        /// </summary>
+        /// <returns>returns true if validation succeed</returns>
         private bool validateInputParameters()
         {
             //Validation: Only proceed if there is a valid path to the testsuite 
@@ -1767,6 +1901,10 @@ namespace Aletheia.HitSpectra
         }
 
 #region Functions validating the input parameters
+        /// <summary>
+        /// validates the path to test suite
+        /// </summary>
+        /// <returns>returns true if succeed</returns>
         private bool validPathToTestsuiteExists()
         {
 
@@ -1797,7 +1935,10 @@ namespace Aletheia.HitSpectra
             }
             return true;
         }
-
+        /// <summary>
+        /// checks if a valid project exists
+        /// </summary>
+        /// <returns>returns true if succeed</returns>
         private bool validSolutionNameExists()
         {
             //Validation: Only proceed if there is a valid solution name
@@ -1809,7 +1950,10 @@ namespace Aletheia.HitSpectra
             }
             return true;
         }
-
+        /// <summary>
+        /// checks if source directory exists
+        /// </summary>
+        /// <returns>returns true if succeeds</returns>
         private bool validSourceDirectoryExists()
         {
             //Validation: Only proceed if there is a valid source directory
@@ -1821,7 +1965,10 @@ namespace Aletheia.HitSpectra
             }
             return true;
         }
-
+        /// <summary>
+        /// checks if output directory exists
+        /// </summary>
+        /// <returns>returns true if succeed</returns>
         private bool validOutputDirectoryExists()
         {
             //Validation: Only proceed if there is a valid output directory
@@ -1833,7 +1980,10 @@ namespace Aletheia.HitSpectra
             }
             return true;
         }
-
+        /// <summary>
+        /// checks if gtest exe exists
+        /// </summary>
+        /// <returns>returns true if succeeds</returns>
         private bool validGtestExecutableExists()
         {
             if(projectMode.Equals("default"))
@@ -1902,7 +2052,10 @@ namespace Aletheia.HitSpectra
         }
 #endregion
 #endregion
-
+        /// <summary>
+        /// checks if test case exists
+        /// </summary>
+        /// <returns>returns true if succeeds</returns>
         private bool checkIfThereAreAnyTestcasesInTestSuite()
         {
             //Validation - Only proceed if there is at least one TestCase
@@ -1920,6 +2073,11 @@ namespace Aletheia.HitSpectra
             return true;
         }
 
+        /// <summary>
+        /// extracts true/false from char
+        /// </summary>
+        /// <param name="value">character</param>
+        /// <returns>True/False</returns>
         private bool extractBooleanValue(char value)
         {
             if (value == '0')
@@ -1931,7 +2089,10 @@ namespace Aletheia.HitSpectra
                 return true;
             }
         }
-
+        /// <summary>
+        /// creates working directory
+        /// </summary>
+        /// <returns>returns true on succss</returns>
         private bool createWorkingDirectory()
         {
             workingDir = createOutputDirectory();
@@ -1957,7 +2118,10 @@ namespace Aletheia.HitSpectra
 
             return true;
         }
-
+        /// <summary>
+        /// creates outptut directory name
+        /// </summary>
+        /// <returns>output directory name</returns>
         private string createOutputDirectory()
         {
             try
@@ -1977,7 +2141,10 @@ namespace Aletheia.HitSpectra
                 return null;
             }
         }
-
+        /// <summary>
+        /// check if openCppCoverge is installed 
+        /// </summary>
+        /// <returns>True on success</returns>
         private bool checkIfOpenCppCoverageIsInstalledOnHostPC()
         {
             if (ProjectConfig.GetInstalledProgramPath("OpenCppCoverage") == null)
@@ -1988,7 +2155,13 @@ namespace Aletheia.HitSpectra
 
             return true;
         }
-
+        /// <summary>
+        /// create log for printing on console
+        /// </summary>
+        /// <param name="testCount">Number of test remaining</param>
+        /// <param name="testName">Test Name</param>
+        /// <param name="testResult">Test Result</param>
+        /// <returns>log</returns>
         private string createLogExecutionResult(int testCount, string testName, RunResult testResult)
         {
             string result = string.Empty;
@@ -2007,11 +2180,7 @@ namespace Aletheia.HitSpectra
 
             return result;
         }
-        /**
-         * Journal 004:
-         * process line is a vital function, it takes a line from the binary object file and checks if there is a 
-         * 
-         * */
+ 
         /// <summary>
         /// processLine is takes two string as input and find if there exist any testCase under the testname
         /// </summary>
@@ -2055,6 +2224,11 @@ namespace Aletheia.HitSpectra
             }
 
         }
+        /// <summary>
+        /// creates alternate test name
+        /// </summary>
+        /// <param name="tName">Test Name</param>
+        /// <returns>new name</returns>
         private string generateAlternateTestName(string tName)
         {
             if (tName.Contains("_"))
@@ -2065,6 +2239,11 @@ namespace Aletheia.HitSpectra
             else
                 return "";
         }
+        /// <summary>
+        /// process line to find test case
+        /// </summary>
+        /// <param name="line">Line of code</param>
+        /// <returns>test case</returns>
         private string processLineOfSource(string line)
         {
             string testcase = "";
@@ -2076,6 +2255,11 @@ namespace Aletheia.HitSpectra
             }
             return testcase;
         }
+        /// <summary>
+        /// extract test cases from source file
+        /// </summary>
+        /// <param name="path">path to source file</param>
+        /// <returns>HashSet of test cases</returns>
         private HashSet<string> ExtractTestCasesFromSourceFile(string path)
         {
             HashSet<string> testCasesWithTest = new HashSet<string>();
@@ -2104,7 +2288,7 @@ namespace Aletheia.HitSpectra
         /// this function takes a path string as a input. This path should point to the object file generated by gn gen corresponding to a google test
         /// the object file links can be found in corresponding ninja file of the unitest
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">Path to object file</param>
         /// <returns>HashSet of testCases</returns>
         private HashSet<string> ExtractTestCasesFromObjectFile(string path)
         {
